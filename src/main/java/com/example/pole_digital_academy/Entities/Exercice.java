@@ -1,14 +1,47 @@
 package com.example.pole_digital_academy.Entities;
 
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "exercices")
 public class Exercice {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int year;
-    private int status=ExerciceStatusEnum.CANCELED.ordinal();
+    @Enumerated(EnumType.ORDINAL)
+    private ExerciceStatusEnum status=ExerciceStatusEnum.NOT_SET;
+    LocalDate startDate;
+    LocalDate endDate;
 
+    @ManyToOne
+    @JoinColumn(name = "activity_id")
+    private Activity activity;
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    //TODO:: add activity
     enum ExerciceStatusEnum{
-        IN_PROGRESS,
-        DONE,
-        CANCELED
+        IN_PROGRESS("En cours"),
+        DONE("Faite"),
+        CANCELED("annulé"),
+        NOT_SET("inconnue");
+        private String name;
+        ExerciceStatusEnum(String name){
+            this.name=name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
 }
