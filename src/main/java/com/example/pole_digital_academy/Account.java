@@ -1,8 +1,7 @@
 package com.example.pole_digital_academy;
 
 
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 @Entity
 @Table(name = "accounts")
 public class Account {
