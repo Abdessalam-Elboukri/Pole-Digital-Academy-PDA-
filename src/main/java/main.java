@@ -8,6 +8,9 @@ public class main {
         System.out.println("yaes");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
         System.out.println("no");
+        
+
+
 
     }
 }
