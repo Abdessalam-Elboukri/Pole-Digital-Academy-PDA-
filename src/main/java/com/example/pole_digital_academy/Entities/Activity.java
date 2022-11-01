@@ -19,7 +19,8 @@ public class Activity {
     @Enumerated(EnumType.ORDINAL)
     private ActivityStatusEnum status=ActivityStatusEnum.ACTIVE;
     //TODO:: responsible
-    @OneToMany(mappedBy = "activity")
+
+    @OneToMany(mappedBy = "activity",cascade = CascadeType.ALL)
     private List<Exercice> exercices;
 
     public int getId() {
@@ -74,7 +75,7 @@ public class Activity {
         this.exercices = exercices;
     }
 
-    enum ActivityStatusEnum{
+    public enum ActivityStatusEnum{
         ACTIVE("Activé"),INACTIVE("Désactivé");
         String title;
         ActivityStatusEnum(String title){

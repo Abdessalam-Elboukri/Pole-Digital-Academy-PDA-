@@ -17,7 +17,7 @@ public class Exercice {
     LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name = "activity_id")
+    @JoinColumn(name = "activity_id",referencedColumnName = "id",nullable = false)
     private Activity activity;
 
     public Activity getActivity() {
@@ -29,7 +29,7 @@ public class Exercice {
     }
 
     //TODO:: add activity
-    enum ExerciceStatusEnum{
+    public enum ExerciceStatusEnum{
         IN_PROGRESS("En cours"),
         DONE("Faite"),
         CANCELED("annulé"),
@@ -44,4 +44,43 @@ public class Exercice {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public ExerciceStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(ExerciceStatusEnum status) {
+        this.status = status;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
 }
