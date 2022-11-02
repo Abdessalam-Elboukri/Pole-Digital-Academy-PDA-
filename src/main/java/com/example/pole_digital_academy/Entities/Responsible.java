@@ -9,7 +9,6 @@ public class Responsible extends User{
     private String domaine;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "res_type", unique = false, referencedColumnName = "id")
-    //@Column(name = "responsible_type")
     private ResponsibleType res_type;
 
     public String getDomaine() {
