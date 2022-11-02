@@ -1,12 +1,10 @@
 package com.example.pole_digital_academy.Entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "activities")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Activity {
     @Id
@@ -19,15 +17,33 @@ public class Activity {
 
     @Enumerated(EnumType.ORDINAL)
     private ActivityTypeEnum activityType=ActivityTypeEnum.COURSE;
+
     @Enumerated(EnumType.ORDINAL)
     private ActivityStatusEnum status=ActivityStatusEnum.ACTIVE;
-    //TODO:: responsible
-    //TODO:: fix oneToMany relationship
-    @OneToMany(mappedBy = "activity",cascade = CascadeType.ALL)
-    private List<Exercice> exercices;
 
-    public int getId() {
-        return id;
+    @OneToOne
+    private Responsible responsible;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Exercice> exercices;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ActivityTypeEnum getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(ActivityTypeEnum activityType) {
+        this.activityType = activityType;
+    }
+
+    public Responsible getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(Responsible responsible) {
+        this.responsible = responsible;
     }
 
     public String getTitle() {
@@ -100,6 +116,10 @@ public class Activity {
         public String toString() {
             return this.name;
         }
+    }
+
+    public int getId() {
+        return id;
     }
 
 }

@@ -10,14 +10,16 @@ public class Exercice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String title;
     private int year;
     @Enumerated(EnumType.ORDINAL)
     private ExerciceStatusEnum status=ExerciceStatusEnum.NOT_SET;
     LocalDate startDate;
     LocalDate endDate;
 
-    @ManyToOne
-    @JoinColumn(name = "activity_id",referencedColumnName = "id",nullable = false)
+
+   // @JoinColumn(name = "activity_id",referencedColumnName = "id",nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
     private Activity activity;
 
     public Activity getActivity() {
@@ -82,5 +84,13 @@ public class Exercice {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
