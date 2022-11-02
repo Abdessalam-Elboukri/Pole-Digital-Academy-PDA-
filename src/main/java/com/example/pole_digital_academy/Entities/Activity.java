@@ -16,10 +16,13 @@ public class Activity {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
+
+    @Enumerated(EnumType.ORDINAL)
+    private ActivityTypeEnum activityType=ActivityTypeEnum.COURSE;
     @Enumerated(EnumType.ORDINAL)
     private ActivityStatusEnum status=ActivityStatusEnum.ACTIVE;
     //TODO:: responsible
-
+    //TODO:: fix oneToMany relationship
     @OneToMany(mappedBy = "activity",cascade = CascadeType.ALL)
     private List<Exercice> exercices;
 
@@ -74,14 +77,29 @@ public class Activity {
     public void setExercices(List<Exercice> exercices) {
         this.exercices = exercices;
     }
+    public enum ActivityTypeEnum{
+        COURSE("Formation"),TALK("Talk"),EVENT("Evénement");
+        private String name;
+        private  ActivityTypeEnum(String name){
+            this.name=name;
+        }
 
-    public enum ActivityStatusEnum{
-        ACTIVE("Activé"),INACTIVE("Désactivé");
-        String title;
-        ActivityStatusEnum(String title){
-            this.title=title;
+        @Override
+        public String toString() {
+            return this.name;
         }
     }
+    public enum ActivityStatusEnum{
+        ACTIVE("Activé"),INACTIVE("Désactivé");
+        private String name;
+        ActivityStatusEnum(String name){
+            this.name =name;
+        }
 
+        @Override
+        public String toString() {
+            return this.name;
+        }
+    }
 
 }
