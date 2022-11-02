@@ -28,8 +28,8 @@ public class main {
             Participant participant = new Participant();
             participant.setFirstName("abde");
             participant.setLastName("elboukri");
-            participant.setPhone("062333855521");
-            participant.setEmail("abde233@gmail.com");
+            participant.setPhone("06233385331");
+            participant.setEmail("abde2553@gmail.com");
             participant.setRole(User.Role.PARTICIPANT);
             participant.setUserStatus(User.UserStatusEnum.ACTIVE);
             participant.setDomaine("developer");
