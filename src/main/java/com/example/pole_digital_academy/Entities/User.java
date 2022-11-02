@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class User {
+public class User<ACTIVE> {
 
     @Id
     @GeneratedValue (strategy = GenerationType.TABLE)
@@ -26,17 +26,24 @@ public class User {
     @Column(unique = true)
     private String phone;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id_role", unique = false, referencedColumnName = "id_role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Enumerated(EnumType.STRING)
     private UserStatusEnum userStatus;
 
+    public enum Role{
+        ADMIN,
+        RESPONSIBLE,
+        PARTICIPANT
+    }
+
+
     public enum UserStatusEnum {
         ACTIVE,
         DISABLED
     }
+
 
     public User() {
     }
@@ -107,6 +114,17 @@ public class User {
         this.userStatus = userStatus;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role=" + role +
+                ", userStatus=" + userStatus +
+                '}';
+    }
 }
 
