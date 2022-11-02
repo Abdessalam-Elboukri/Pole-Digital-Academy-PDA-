@@ -1,0 +1,10 @@
+docker-compose.yaml
+.env
+.idea
+.idea/misc.xml
+.idea/vcs.xml
+target
+Pole Digital Academy.iml
+src/main/resources/META-INF/persistence.xml
+data
+src/test
