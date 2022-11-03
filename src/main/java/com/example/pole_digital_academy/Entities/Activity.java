@@ -7,8 +7,16 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Activity {
+    public static final String KEY_ID="id";
+    public static final String KEY_TITLE="title";
+    public static final String KEY_DESCRIPTION="description";
+    public static final String KEY_START_DATE="start_date";
+    public static final String KEY_END_DATE="end_date";
+    public static final String KEY_ACTIVITY_TYPE="end_date";
+    public static final String KEY_ACTIVITY_STATUS="end_date";
+    public static final String KEY_RESPONSIBLE="end_date";
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
     private String title ;
     private String description;

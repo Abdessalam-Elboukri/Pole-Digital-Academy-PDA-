@@ -4,6 +4,7 @@ docker-compose.yaml
 .idea/misc.xml
 .idea/vcs.xml
 target
+target/**
 Pole Digital Academy.iml
 src/main/resources/META-INF/persistence.xml
 data
