@@ -10,15 +10,15 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
 
-      //  private UserServiceImp auth;
+        // private UserServiceImp auth;
 
         public void init(){
-           // auth= new UserServiceImp();
+        //    auth= new UserServiceImp();
         }
 
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
             dispatcher.forward(request,response);
         }
 

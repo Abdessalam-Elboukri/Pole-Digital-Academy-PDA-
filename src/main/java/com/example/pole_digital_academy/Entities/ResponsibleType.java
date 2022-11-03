@@ -18,7 +18,6 @@ public class ResponsibleType {
         this.id = id;
     }
 
-    @Id
     public int getId() {
         return id;
     }

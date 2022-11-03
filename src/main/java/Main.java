@@ -1,4 +1,3 @@
-/*
 import com.example.pole_digital_academy.Entities.Activity;
 import com.example.pole_digital_academy.Entities.Exercice;
 import com.example.pole_digital_academy.Entities.Participant;
@@ -15,9 +14,8 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-       // insertres();
-       // selectres();
-
+        /*insertres();
+        selectres();*/
         EntityManager em= EntityManagerFactory.getEntityManager();
         em.getTransaction().begin();
         Activity activity=new Activity();
@@ -89,4 +87,3 @@ public class Main {
         }
 
 }
-*/
