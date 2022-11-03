@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Table(name = "exercices")
 public class Exercice {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
     private String title;
     private int year;
