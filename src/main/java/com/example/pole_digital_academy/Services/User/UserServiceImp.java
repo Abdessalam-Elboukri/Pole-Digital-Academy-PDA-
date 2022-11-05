@@ -1,15 +1,13 @@
-package com.example.pole_digital_academy.Dao.User;
+package com.example.pole_digital_academy.Services.User;
 
+import com.example.pole_digital_academy.Dao.DaoFactory;
+import com.example.pole_digital_academy.Dao.User.UserDao;
 import com.example.pole_digital_academy.Entities.User;
-import com.example.pole_digital_academy.utils.EntityManagerFactory;
-import jakarta.persistence.EntityManager;
+import com.example.pole_digital_academy.Services.ServicesFactory;
 
 import java.util.List;
 
-public class UserDaoImp implements UserDao{
-
-    private static EntityManager em = EntityManagerFactory.getEntityManager();
-
+public class UserServiceImp implements IUserService{
     @Override
     public int delete(int id) throws Exception {
         return 0;
@@ -36,8 +34,7 @@ public class UserDaoImp implements UserDao{
     }
 
 
-    @Override
-    public User findByEmail(String Email) throws Exception {
-        return null;
-    }
+
+
+
 }
