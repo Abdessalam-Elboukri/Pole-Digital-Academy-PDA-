@@ -47,7 +47,6 @@ public class AdminDaoImp implements IAdminDao{
         Admin admin = (Admin) query.getSingleResult();
         System.out.println(admin.getRole());
         em.getTransaction().commit();
-
         return admin;
     }
 
