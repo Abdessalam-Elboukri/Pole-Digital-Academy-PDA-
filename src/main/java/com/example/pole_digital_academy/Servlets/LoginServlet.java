@@ -1,4 +1,6 @@
 package com.example.pole_digital_academy.Servlets;
+import com.example.pole_digital_academy.Entities.Admin;
+import com.example.pole_digital_academy.Entities.User;
 import com.example.pole_digital_academy.Services.Admin.AdminServiceImp;
 import com.example.pole_digital_academy.Services.Admin.IAdminService;
 import jakarta.servlet.*;
@@ -31,10 +33,12 @@ public class LoginServlet extends HttpServlet {
 
             //System.out.println(auth.login(email,password));
             try {
-                if(auth.login(email,password)==true){
+                if(auth.login(email, password)){
                     int adminId = new AdminServiceImp().findByEmail(email).getId();
+                    User.Role authRole = new AdminServiceImp().findByEmail(email).getRole();
                     HttpSession session = request.getSession();
                     session.setAttribute("AdminId",adminId);
+                    session.setAttribute("authRole",authRole );
                     response.sendRedirect("home");
                 }else{
                     RequestDispatcher reject=request.getRequestDispatcher("login.jsp");
