@@ -19,11 +19,11 @@
         <table style="with: 80%">
             <tr>
                 <td>Email</td>
-                <td><input type="email" name="email" /></td>
+                <td><input type="email" name="Email" /></td>
             </tr>
             <tr>
                 <td>Password</td>
-                <td><input type="password" name="password" /></td>
+                <td><input type="password" name="Password" /></td>
             </tr>
         </table>
         <input type="submit" value="Submit" />
