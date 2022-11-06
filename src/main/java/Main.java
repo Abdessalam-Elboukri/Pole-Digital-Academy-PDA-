@@ -11,10 +11,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-         //insertres();
+         insertres();
          //selectres();
 
-        addAdmin();
+        //addAdmin();
 /*
         EntityManager em= EntityManagerFactory.getEntityManager();
         em.getTransaction().begin();
@@ -61,13 +61,13 @@ public class Main {
 
 
         Participant participant = new Participant();
-        participant.setFirstName("abde");
-        participant.setLastName("elboukri");
-        participant.setPhone("463333");
-        participant.setEmail("65HI5@gmail.com");
+        participant.setFirstName("omar");
+        participant.setLastName("kazoum");
+        participant.setPhone("0667673755");
+        participant.setEmail("Okazoum@gmail.com");
         participant.setRole(User.Role.PARTICIPANT);
         participant.setUserStatus(User.UserStatusEnum.ACTIVE);
-        participant.setDomaine("developer");
+        participant.setDomaine("coach");
         //=================
         entityManager.getTransaction().begin();
         entityManager.persist(participant);
