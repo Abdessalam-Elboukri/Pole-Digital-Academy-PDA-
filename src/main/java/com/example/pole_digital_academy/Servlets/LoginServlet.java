@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("AdminId",adminId);
                     session.setAttribute("authRole",authRole );
-                    response.sendRedirect("home");
+                    response.sendRedirect("activities");
                 }else{
                     RequestDispatcher reject=request.getRequestDispatcher("login.jsp");
                     reject.include(request,response);

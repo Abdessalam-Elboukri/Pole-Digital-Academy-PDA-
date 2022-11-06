@@ -23,6 +23,7 @@ public class InputValidator {
             errors.add("invalide activity description must contain at least 3 characters");
         }
         //TODO validate dates here
+        //TODO:: validate that the activity does not have a null responsible
 
         return isValid;
     }
