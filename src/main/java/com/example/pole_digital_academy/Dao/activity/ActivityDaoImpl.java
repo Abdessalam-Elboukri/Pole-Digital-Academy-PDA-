@@ -7,15 +7,16 @@ import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
-public class ActivityDaoImpl implements IDao<Activity> {
+public class ActivityDaoImpl implements IActivityDao {
     @Override
     public int delete(int id) throws Exception {
-        return 0;
+        EntityManagerFactory.getEntityManager().remove(EntityManagerFactory.getEntityManager().find(Activity.class,id));
+        return 1;
     }
 
     @Override
     public List<Activity> getAll() throws Exception {
-        return null;
+        return EntityManagerFactory.getEntityManager().createQuery("SELECT a FROM Activity a",Activity.class).getResultList();
     }
 
     @Override

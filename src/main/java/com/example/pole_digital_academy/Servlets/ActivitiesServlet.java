@@ -25,9 +25,17 @@ public class ActivitiesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doGet(req, resp);
-
-        switch(req.getRequestURI()){
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+        switch(requestUrl){
             case "/activities":
+                List<Activity> activities;
+                try {
+                    activities=ServicesFactory.getActivityService().getAll();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new IOException(e.getMessage());
+                }
+                req.setAttribute(Constants.KEY_ACTIVITIES_LIST,activities);
                 req.getRequestDispatcher("/WEB-INF/activities/list.jsp").forward(req,resp);
                 break;
             case "/activities/add":
@@ -40,6 +48,20 @@ public class ActivitiesServlet extends HttpServlet {
                 case "/activities/edit":
                 req.getRequestDispatcher("/WEB-INF/activities/edit.jsp").forward(req,resp);
                 break;
+                case "/activities/delete":
+                    IActivityService activityService=ServicesFactory.getActivityService();
+                    String message="";
+                    try {
+                            ServicesFactory.getActivityService().delete(Integer.parseInt(req.getParameter("id")));
+                            message="activity deleted successfully!";
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                            message="Error deleting service";
+                    }finally {
+                        resp.sendRedirect("/activities?message="+message);
+                    }
+
+                break;
             default:
                 resp.getWriter().write("no route mapping");
         };
@@ -48,12 +70,16 @@ public class ActivitiesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doPost(req, resp);
-        switch(req.getRequestURI()){
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+        switch(requestUrl){
             case "/activities/add":
                 //TODO:: handle add activity form data
                 // validate then send to business layer to handle data
-                processAddActivity(req,resp);
-
+                try {
+                    processAddActivity(req,resp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case "/activities/edit":
                 //TODO:: handle update form data
@@ -64,7 +90,7 @@ public class ActivitiesServlet extends HttpServlet {
         };
 
     }
-    private void processAddActivity(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void processAddActivity(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         Activity activity=new Activity();
         activity.setTitle(req.getParameter(Activity.KEY_TITLE));
         try {
@@ -72,7 +98,6 @@ public class ActivitiesServlet extends HttpServlet {
         }catch (Exception exception){
             exception.printStackTrace();
         }
-        activity.setTitle("te");
         activity.setStatus(Activity.ActivityStatusEnum.ACTIVE);
         try {
             activity.setStartDate(LocalDate.parse(req.getParameter(Activity.KEY_START_DATE)));
@@ -94,7 +119,7 @@ public class ActivitiesServlet extends HttpServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
-        //TODO:: move this logic to the ResponsibleDAO
+        //TODO:: move this logic to the ResponsibleService
         Responsible responsible= EntityManagerFactory.getEntityManager().find(Responsible.class,Integer.parseInt(req.getParameter(Activity.KEY_RESPONSIBLE_ID)));
         activity.setResponsible(responsible);
         List<String> validationErrors=new ArrayList<>();
@@ -103,6 +128,7 @@ public class ActivitiesServlet extends HttpServlet {
             ServicesFactory.getActivityService().insert(activity);
             resp.getWriter().write("activity inserted successfully!");
             System.out.println("activity added");
+
         }else
         {
             //if the data is not valid we redirect the user to activity creation form with validation errors

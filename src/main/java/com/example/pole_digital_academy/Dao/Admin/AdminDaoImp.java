@@ -27,8 +27,8 @@ public class AdminDaoImp implements IAdminDao{
     }
 
     @Override
-    public int insert(Admin entity) throws Exception {
-        return 0;
+    public void insert(Admin entity) throws Exception {
+
     }
 
     @Override
@@ -40,13 +40,11 @@ public class AdminDaoImp implements IAdminDao{
     @Override
     public Admin findByEmail(String Email) throws Exception {
         EntityManager em = EntityManagerFactory.getEntityManager();
-        em.getTransaction().begin();
         System.out.println("here");
         Query query = em.createQuery(  "SELECT admin FROM Admin admin  where admin.email = :Email ", Admin.class);
         query.setParameter("Email", Email);
         Admin admin = (Admin) query.getSingleResult();
         System.out.println(admin.getRole());
-        em.getTransaction().commit();
         return admin;
     }
 
