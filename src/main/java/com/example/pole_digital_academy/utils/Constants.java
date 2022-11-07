@@ -5,4 +5,5 @@ public class Constants {
     public static final String KEY_RESPONSIBLES="responsibles";
 
     public static final String KEY_ACTIVITIES_LIST = "activities_list";
+    public static final String KEY_ACTIVITY_TO_EDIT = "activity_to_edit";
 }

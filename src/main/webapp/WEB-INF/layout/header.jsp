@@ -1,4 +1,6 @@
+<%--
 <script src="https://cdn.tailwindcss.com"></script>
+--%>
 <header class="flex items-start">
     <H1 class="font-bold">Pole Academy header</H1>
     <nav class="bg-blue-50 ml-5">

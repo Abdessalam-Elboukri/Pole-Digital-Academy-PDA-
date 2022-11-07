@@ -8,6 +8,7 @@ import java.util.List;
 public class ActivityServiceImp implements IActivityService{
     @Override
     public int delete(int id) throws Exception {
+        System.out.println("service got id of "+id);
         DaoFactory.getActivityDao().delete(id);
         return  1;
     }
@@ -19,8 +20,9 @@ public class ActivityServiceImp implements IActivityService{
     }
 
     @Override
-    public Activity findById(int id)  {
-        return null;
+    public Activity findById(int id) throws Exception {
+
+        return DaoFactory.getActivityDao().findById(id);
     }
 
     @Override
@@ -30,7 +32,8 @@ public class ActivityServiceImp implements IActivityService{
     }
 
     @Override
-    public int update(Activity entity)  {
-        return 0;
+    public int update(Activity entity) throws Exception {
+
+        return DaoFactory.getActivityDao().update(entity);
     }
 }

@@ -17,11 +17,10 @@
 </head>
 <body>
 <%@ include file="../layout/header.jsp"%>
-<c:if test="${!empty requestScope.message}">
-    <p>
-        <c:out value="${requestScope.message}"></c:out>
-    </p>
-</c:if>
+<% String msg=request.getParameter("message");
+    if(msg!=null){
+    out.print("<p>"+msg+"</p>");
+};%>
 <h1 class="font-bold">activities list</h1>
 <% List<Activity> activities=((List<Activity>)request.getAttribute(Constants.KEY_ACTIVITIES_LIST)); %>
 <div><a href="${URI}/add">add </a></div>
@@ -48,8 +47,8 @@
             <td><%= a.getStatus().toString() %></td>
             <td><%= a.getActivityType().toString() %></td>
             <td><%= a.getResponsible().getFirstName()+" "+ a.getResponsible().getLastName()%></td>
-            <td><a href="${URI}/edit?id=<%= a.getId()%>">edit</a></td>
-            <td><a href="${URI}/delete?id=<%= a.getId()%>">delete</a></td>
+            <td><a href="${URI}/edit?id=<%= a.getId()%>">View/Edit</a></td>
+            <td><a href="${URI}/delete?id=<%= a.getId()%>">Delete</a></td>
         </tr>
 
     <% }%>
