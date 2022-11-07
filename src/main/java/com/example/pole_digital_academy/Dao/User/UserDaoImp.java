@@ -26,8 +26,8 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public int insert(User entity) throws Exception {
-        return 0;
+    public void insert(User entity) throws Exception {
+
     }
 
     @Override

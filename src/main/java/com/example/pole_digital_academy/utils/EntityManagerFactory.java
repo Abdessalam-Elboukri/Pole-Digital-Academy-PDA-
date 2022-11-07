@@ -6,7 +6,7 @@ import jakarta.persistence.Persistence;
 public class EntityManagerFactory {
     private static EntityManager entityManager;
     public static EntityManager getEntityManager(){
-        if(entityManager==null) {
+        if(entityManager==null ||! entityManager.isOpen()) {
              jakarta.persistence.EntityManagerFactory emf= Persistence.createEntityManagerFactory("pda_academy");
             entityManager=emf.createEntityManager();
         }

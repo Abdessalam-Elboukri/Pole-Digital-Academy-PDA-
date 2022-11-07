@@ -12,9 +12,9 @@ public class Activity {
     public static final String KEY_DESCRIPTION="description";
     public static final String KEY_START_DATE="start_date";
     public static final String KEY_END_DATE="end_date";
-    public static final String KEY_ACTIVITY_TYPE="end_date";
-    public static final String KEY_ACTIVITY_STATUS="end_date";
-    public static final String KEY_RESPONSIBLE="end_date";
+    public static final String KEY_ACTIVITY_TYPE="activity_type";
+    public static final String KEY_ACTIVITY_STATUS="activity_status";
+    public static final String KEY_RESPONSIBLE_ID ="responsible_id";
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
@@ -24,10 +24,10 @@ public class Activity {
     private LocalDate endDate;
 
     @Enumerated(EnumType.ORDINAL)
-    private ActivityTypeEnum activityType=ActivityTypeEnum.COURSE;
+    private ActivityTypeEnum activityType=null;
 
     @Enumerated(EnumType.ORDINAL)
-    private ActivityStatusEnum status=ActivityStatusEnum.ACTIVE;
+    private ActivityStatusEnum status=null;
 
     @OneToOne
     private Responsible responsible;

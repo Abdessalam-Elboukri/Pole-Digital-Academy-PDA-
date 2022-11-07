@@ -8,8 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class User<ACTIVE> {
-
+public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.TABLE)
     private int id;
