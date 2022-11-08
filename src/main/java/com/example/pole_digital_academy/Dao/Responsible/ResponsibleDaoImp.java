@@ -20,11 +20,12 @@ public class ResponsibleDaoImp implements IResponsibleDao{
     @Override
     public Responsible findById(int id) throws Exception {
         EntityManager em = EntityManagerFactory.getEntityManager();
-        Responsible user = em.find(Responsible.class, id);
-        em.persist(user);
+        em.getTransaction().begin();
+        Responsible responsible = em.find(Responsible.class, id);
+        em.persist(responsible);
 
         em.getTransaction().commit();
-        return null;
+        return responsible;
     }
 
     @Override

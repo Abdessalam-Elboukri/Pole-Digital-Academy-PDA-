@@ -2,6 +2,7 @@ package com.example.pole_digital_academy.Servlets;
 
 
 
+import com.example.pole_digital_academy.Entities.Activity;
 import com.example.pole_digital_academy.Entities.Responsible;
 import com.example.pole_digital_academy.Entities.ResponsibleType;
 import com.example.pole_digital_academy.Entities.User;
@@ -61,7 +62,13 @@ public class ResponsibleServlet extends HttpServlet {
                 responsible.setPhone(req.getParameter("phone"));
                 responsible.setRole(User.Role.PARTICIPANT);
                 responsible.setUserStatus(User.UserStatusEnum.ACTIVE);
-                //responsible.setRes_type(Long.parseLong(req.getParameter("responsibleType")));
+                try {
+                    ResponsibleType restype  = ServicesFactory.getResponsibleTypeService().findById(Integer.parseInt(req.getParameter("responsableType")));
+                    System.out.println(restype);
+                    responsible.setRes_type(restype);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 responsible.setDomaine(req.getParameter("domaine"));
 
                 try {

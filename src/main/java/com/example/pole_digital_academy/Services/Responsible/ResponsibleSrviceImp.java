@@ -23,6 +23,7 @@ public class ResponsibleSrviceImp implements IResponsibleService{
 
     @Override
     public int insert(Responsible entity) throws Exception {
+        DaoFactory.getResponsibleDao().insert(entity);
         return 0;
     }
 
