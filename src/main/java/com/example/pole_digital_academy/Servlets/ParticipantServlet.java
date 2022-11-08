@@ -1,6 +1,11 @@
 package com.example.pole_digital_academy.Servlets;
 
 
+import com.example.pole_digital_academy.Entities.Participant;
+import com.example.pole_digital_academy.Entities.User;
+import com.example.pole_digital_academy.Services.Participant.IParticipantService;
+import com.example.pole_digital_academy.Services.Participant.ParticipantServiceImp;
+import com.example.pole_digital_academy.Services.ServicesFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,22 +15,49 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "participantServlet",urlPatterns = "/participants")
+@WebServlet(name = "participantServlet", urlPatterns ={ "/participants","/participants/add"})
 public class ParticipantServlet extends HttpServlet {
     public String $url ;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/participants/allPrticipantsList.jsp").forward(req,resp);
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
+        switch (requestUrl){
+            case "/participants":
+                req.getRequestDispatcher("/WEB-INF/participants/list.jsp").forward(req,resp);
+            break;
 
+            case "/participants/add":
+                req.getRequestDispatcher("/WEB-INF/participants/add.jsp").forward(req,resp);
+                break;
+
+            case "/participants/update":
+                req.getRequestDispatcher("/WEB-INF/participants/update.jsp").forward(req,resp);
+                break;
+
+            default:
+                resp.getWriter().write("no route mapping");
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doPost(req, resp);
-        switch(req.getRequestURI()){
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
+        switch(requestUrl){
             case "/participants/add":
-                //TODO:: handle add activity form data
-                // validate then send to business layer to handle data
+                Participant participant = new Participant();
+                participant.setFirstName(req.getParameter("firstname"));
+                participant.setLastName(req.getParameter("lastname"));
+                participant.setEmail(req.getParameter("email"));
+                participant.setPhone(req.getParameter("phone"));
+                participant.setRole(User.Role.PARTICIPANT);
+                participant.setUserStatus(User.UserStatusEnum.ACTIVE);
+                participant.setDomaine(req.getParameter("domaine"));
+
+                try {
+                    ServicesFactory.getParticipantService().insert(participant);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 break;
             case "/participants/edit":
