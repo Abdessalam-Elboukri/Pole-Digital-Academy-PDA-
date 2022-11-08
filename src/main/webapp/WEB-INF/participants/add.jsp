@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,11 +22,11 @@
         <div class="flex flex-col space-y-5">
             <label for="firstname">
                 <p class="font-medium text-slate-700 pb-2">First Name</p>
-                <input id="firstname" name="firstname" type="text" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter email address">
+                <input id="firstname" name="firstname" type="text" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your firstname">
             </label>
             <label for="lastname">
                 <p class="font-medium text-slate-700 pb-2">Last Name</p>
-                <input id="lastname" name="lastname" type="text" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your password">
+                <input id="lastname" name="lastname" type="text" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your lastname">
             </label>
             <label for="email">
                 <p class="font-medium text-slate-700 pb-2">Email address</p>
@@ -33,11 +34,11 @@
             </label>
             <label for="phone">
                 <p class="font-medium text-slate-700 pb-2">Number Phone</p>
-                <input id="phone" name="phone" type="tel" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter email address">
+                <input id="phone" name="phone" type="tel" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your phone">
             </label>
             <label for="domaine">
                 <p class="font-medium text-slate-700 pb-2">Domaine</p>
-                <input id="domaine" name="domaine" type="text" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter email address">
+                <input id="domaine" name="domaine" type="text" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your domaine">
             </label>
 
             <button class="w-25 py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center">
