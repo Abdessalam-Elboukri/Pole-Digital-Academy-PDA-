@@ -12,10 +12,11 @@ public class ExerciceDaoImpl implements IExercicieDao{
     public int delete(int id) throws Exception {
         EntityManager em=EntityManagerFactory.getEntityManager();
         em.getTransaction().begin();
-        Query query=em.createQuery("DELETE FROM Exercice WHERE Exercice.id=:id");
+        Query query=em.createQuery("DELETE FROM Exercice e WHERE e.id=:id");
         query.setParameter("id",id);
         int affectedRows= query.executeUpdate();
         em.getTransaction().commit();
+        em.close();
         return affectedRows;
     }
 

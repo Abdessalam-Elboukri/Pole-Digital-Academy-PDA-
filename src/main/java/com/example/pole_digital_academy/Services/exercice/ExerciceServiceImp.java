@@ -8,8 +8,8 @@ import java.util.List;
 public class ExerciceServiceImp implements IExerciceService {
     @Override
     public int delete(int id) throws Exception {
-        DaoFactory.getExerciceDao().delete(id);
-        return  1;
+
+        return  DaoFactory.getExerciceDao().delete(id);
     }
 
     @Override

@@ -59,11 +59,11 @@ public class ExercicesServlet extends HttpServlet {
                     IExerciceService exerciceService=ServicesFactory.getExercicesService();
                     String message="";
                     try {
-                            exerciceService.delete(Integer.parseInt(req.getParameter("id")));
+                        System.out.println("delete exercice : "+exerciceService.delete(Integer.parseInt(req.getParameter("id"))));
                             message="exercice deleted successfully!";
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                            message="Error deleting exercice";
+                    } catch (Exception e) {;
+                        System.out.println("Error:"+e.getCause());
+                        message="Error deleting exercice";
                     }finally {
                         resp.sendRedirect("/exercices?message="+message);
                     }
