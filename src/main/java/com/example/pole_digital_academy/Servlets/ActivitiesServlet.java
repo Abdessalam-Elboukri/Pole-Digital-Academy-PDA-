@@ -43,7 +43,7 @@ public class ActivitiesServlet extends HttpServlet {
             case "/activities/add":
                 //TODO call the responsibles service instead here
                 try {
-                    List<Responsible> responsibles = ServicesFactory.getResponsibleService().getAll();
+                    List<Responsible> responsibles = ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
                     req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
                 } catch (Exception e) {
                     e.printStackTrace();

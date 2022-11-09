@@ -16,6 +16,10 @@ public class ResponsibleSrviceImp implements IResponsibleService{
         return DaoFactory.getResponsibleDao().getAll();
     }
 
+    public List<Responsible> getNonOccupedResponsibles() throws Exception {
+        return DaoFactory.getResponsibleDao().getNonOccupedResponsibles();
+    }
+
     @Override
     public Responsible findById(int id) throws Exception {
         return DaoFactory.getResponsibleDao().findById(id);

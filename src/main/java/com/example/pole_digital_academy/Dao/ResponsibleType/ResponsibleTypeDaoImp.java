@@ -15,7 +15,7 @@ public class ResponsibleTypeDaoImp implements IResponsibleTypeDao{
 
     @Override
     public List<ResponsibleType> getAll() throws Exception {
-        return EntityManagerFactory.getEntityManager().createQuery("SELECT resType FROM ResponsibleType resType", ResponsibleType.class).getResultList();
+        return EntityManagerFactory.getEntityManager().createQuery("SELECT resType FROM ResponsibleType resType ", ResponsibleType.class).getResultList();
 
     }
 
