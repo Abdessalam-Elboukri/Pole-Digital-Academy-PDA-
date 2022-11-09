@@ -41,7 +41,7 @@ public class ActivitiesServlet extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/activities/list.jsp").forward(req,resp);
                 break;
             case "/activities/add":
-                //TODO call the responsibles service instead here
+                //TODO call the responsibles service instead here == >  (done)
                 try {
                     List<Responsible> responsibles = ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
                     req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
