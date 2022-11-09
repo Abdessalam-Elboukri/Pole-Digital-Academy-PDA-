@@ -25,11 +25,16 @@ public class ActivitiesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doGet(req, resp);
         String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
         //TODO call responsible service instead
-        List<Responsible> responsibles=EntityManagerFactory.getEntityManager().createQuery("from Responsible").getResultList();
-        req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
+        List<Responsible> responsibles = null;
+        try {
+            responsibles = ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
+            req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         switch(requestUrl){
             case "/activities":
@@ -47,14 +52,12 @@ public class ActivitiesServlet extends HttpServlet {
 
                 //TODO call the responsibles service instead here == >  (done)
                 try {
-                    List<Responsible> responsibles = ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
+                    //List<Responsible> responsibles = ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
                     req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //List<Responsible> responsibles=EntityManagerFactory.getEntityManager().createQuery("from Responsible").getResultList();
-                req.getRequestDispatcher("/WEB-INF/activities/add.jsp").forward(req,resp);
-                //resp.getWriter().write("ddd");
+                 req.getRequestDispatcher("/WEB-INF/activities/add.jsp").forward(req,resp);
 
                 break;
                 case "/activities/edit":
@@ -154,7 +157,7 @@ public class ActivitiesServlet extends HttpServlet {
             e.printStackTrace();
         }
         //TODO:: move this logic to the ResponsibleService
-        Responsible responsible= EntityManagerFactory.getEntityManager().find(Responsible.class,Integer.parseInt(req.getParameter(Activity.KEY_RESPONSIBLE_ID)));
+        Responsible responsible= ServicesFactory.getResponsibleService().findById(Integer.parseInt(req.getParameter(Activity.KEY_RESPONSIBLE_ID)));
         activity.setResponsible(responsible);
         List<String> validationErrors=new ArrayList<>();
         if(InputValidator.isActivityValid(activity,validationErrors) ){
@@ -177,7 +180,7 @@ public class ActivitiesServlet extends HttpServlet {
         {
             //if the data is not valid we redirect the user to activity creation form with validation errors
             System.out.println("failed to update activity");
-            List<Responsible> responsibles=EntityManagerFactory.getEntityManager().createQuery("from Responsible").getResultList();
+            List<Responsible> responsibles=ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
             req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
             req.setAttribute(Constants.KEY_VALIDATION_ERRORS,validationErrors);
             Activity activityToEdit=null;
@@ -226,7 +229,7 @@ public class ActivitiesServlet extends HttpServlet {
             e.printStackTrace();
         }
         //TODO:: move this logic to the ResponsibleService
-        Responsible responsible= EntityManagerFactory.getEntityManager().find(Responsible.class,Integer.parseInt(req.getParameter(Activity.KEY_RESPONSIBLE_ID)));
+        Responsible responsible=ServicesFactory.getResponsibleService().findById(Integer.parseInt(req.getParameter(Activity.KEY_RESPONSIBLE_ID)));
         activity.setResponsible(responsible);
         List<String> validationErrors=new ArrayList<>();
         if(InputValidator.isActivityValid(activity,validationErrors) ){
@@ -248,7 +251,7 @@ public class ActivitiesServlet extends HttpServlet {
         {
             //if the data is not valid we redirect the user to activity creation form with validation errors
             System.out.println("failed to add activity");
-            List<Responsible> responsibles=EntityManagerFactory.getEntityManager().createQuery("from Responsible").getResultList();
+            List<Responsible> responsibles=ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
             req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
             req.setAttribute(Constants.KEY_VALIDATION_ERRORS,validationErrors);
                   req.getRequestDispatcher("/WEB-INF/activities/add.jsp").forward(req,resp);
