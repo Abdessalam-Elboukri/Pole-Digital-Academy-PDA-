@@ -33,7 +33,7 @@ public class AuthFilter implements Filter {
             }
             else {
                 request.setAttribute("error", "Session timed out!");
-                dispatcher = request.getRequestDispatcher("/admin-login");
+                dispatcher = request.getRequestDispatcher("login.jsp");
                 dispatcher.forward(request, response);
                 return;
             }
