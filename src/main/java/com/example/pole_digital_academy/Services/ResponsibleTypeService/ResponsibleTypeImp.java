@@ -18,7 +18,7 @@ public class ResponsibleTypeImp implements IResponsibleTypeService{
 
     @Override
     public ResponsibleType findById(int id) throws Exception {
-        return null;
+        return DaoFactory.getResponsibleTypeDao().findById(id);
     }
 
     @Override
