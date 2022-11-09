@@ -37,6 +37,7 @@
     </tr>
     <% for(int i=0;i<activities.size();i++){
         Activity a=activities.get(i);
+        int exercisesCount= a.getExercices()==null ?0: a.getExercices().size();
     %>
         <tr>
             <td><%= a.getId()%></td>
@@ -47,6 +48,7 @@
             <td><%= a.getStatus().toString() %></td>
             <td><%= a.getActivityType().toString() %></td>
             <td><%= a.getResponsible().getFirstName()+" "+ a.getResponsible().getLastName()%></td>
+            <td><a href="/exercices/activity?id=<%= a.getId()%>">Exercises (<%= exercisesCount%>)</a></td>
             <td><a href="${URI}/edit?id=<%= a.getId()%>">View/Edit</a></td>
             <td><a href="${URI}/delete?id=<%= a.getId()%>">Delete</a></td>
         </tr>

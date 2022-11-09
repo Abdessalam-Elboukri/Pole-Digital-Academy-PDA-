@@ -28,7 +28,7 @@ public class Exercice {
 
 
    // @JoinColumn(name = "activity_id",referencedColumnName = "id",nullable = false)
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Activity activity;
 
     public Activity getActivity() {

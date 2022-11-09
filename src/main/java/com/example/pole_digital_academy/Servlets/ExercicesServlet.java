@@ -17,7 +17,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "exercicesServlet",urlPatterns = {"/exercices","/exercices/add","/exercices/delete","/exercices/edit"})
+@WebServlet(name = "exercicesServlet",urlPatterns = {"/exercices","/exercices/add","/exercices/delete","/exercices/edit","/exercices/activity"})
 public class ExercicesServlet extends HttpServlet {
 
 
@@ -38,6 +38,20 @@ public class ExercicesServlet extends HttpServlet {
                 req.setAttribute(Constants.KEY_EXERCICES_LIST,exercices);
                 req.getRequestDispatcher("/WEB-INF/exercices/list.jsp").forward(req,resp);
                 break;
+            case "/exercices/activity":
+
+                List<Exercice> exercicesForActivity;
+                try {
+                    exercicesForActivity=ServicesFactory.getExercicesService().getAllForActivity(Integer.parseInt(req.getParameter("id")));
+                    req.setAttribute(Constants.KEY_EXERCISES_FOR_ACTIVITY,ServicesFactory.getActivityService().findById(Integer.parseInt(req.getParameter("id"))).getTitle());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new IOException(e.getMessage());
+                }
+
+                req.setAttribute(Constants.KEY_EXERCICES_LIST,exercicesForActivity);
+                req.getRequestDispatcher("/WEB-INF/exercices/list.jsp").forward(req,resp);
+                break;
             case "/exercices/add":
                 try {
                     req.setAttribute(Constants.KEY_ACTIVITIES_LIST,ServicesFactory.getActivityService().getAll());
@@ -54,7 +68,6 @@ public class ExercicesServlet extends HttpServlet {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                     req.setAttribute(Constants.KEY_EXERCICE_TO_EDIT,exerciceToEdit);
                     req.getRequestDispatcher("/WEB-INF/exercices/edit.jsp").forward(req,resp);
                 break;

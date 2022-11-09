@@ -34,4 +34,9 @@ public class ExerciceServiceImp implements IExerciceService {
     public int update(Exercice entity) throws Exception {
         return DaoFactory.getExerciceDao().update(entity);
     }
+
+    @Override
+    public List<Exercice> getAllForActivity(int activityId) throws Exception {
+        return DaoFactory.getActivityDao().findById(activityId).getExercices();
+    }
 }

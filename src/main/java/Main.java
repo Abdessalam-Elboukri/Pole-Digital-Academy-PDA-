@@ -1,4 +1,5 @@
 
+import com.example.pole_digital_academy.Dao.DaoFactory;
 import com.example.pole_digital_academy.Entities.*;
 import com.example.pole_digital_academy.utils.EntityManagerFactory;
 import jakarta.persistence.EntityManager;
@@ -9,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-
-         insertres();
+    public static void main(String[] args) throws Exception {
+        System.out.println(DaoFactory.getActivityDao().findById(5).getExercices().size());
+         //insertres();
          //selectres();
 
         //addAdmin();
