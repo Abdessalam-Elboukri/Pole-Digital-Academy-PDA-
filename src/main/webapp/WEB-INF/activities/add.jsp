@@ -66,8 +66,9 @@
     <select class="w-1/2" name="${Activity.KEY_RESPONSIBLE_ID}" title="activity type" id="${Activity.KEY_RESPONSIBLE_ID}">
         <%= ((List<Responsible>)request.getAttribute(Constants.KEY_RESPONSIBLES)).stream().map(r->"<option value=\""+r.getId()+"\">"+r.getLastName()+" "+r.getFirstName()+"</option>").collect(Collectors.joining("")) %>
     </select>
-    <input type="submit" value="send">
     </div>
+    <input type="submit" value="send">
+
 
 </form>
 </body>

@@ -1,6 +1,7 @@
-package com.example.pole_digital_academy.Servlets;
+package com.example.pole_digital_academy.utils;
 
 import com.example.pole_digital_academy.Entities.Activity;
+import com.example.pole_digital_academy.Entities.Exercice;
 
 import java.util.List;
 
@@ -28,4 +29,8 @@ public class InputValidator {
         return isValid;
     }
 
+    public static boolean isExerciceValid(Exercice exercice, List<String> validationErrors) {
+        //TODO:: validate this
+        return true;
+    }
 }

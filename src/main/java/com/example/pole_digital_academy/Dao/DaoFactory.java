@@ -12,6 +12,10 @@ import com.example.pole_digital_academy.Dao.User.UserDao;
 import com.example.pole_digital_academy.Dao.User.UserDaoImp;
 import com.example.pole_digital_academy.Dao.activity.ActivityDaoImpl;
 import com.example.pole_digital_academy.Dao.activity.IActivityDao;
+import com.example.pole_digital_academy.Dao.exercice.ExerciceDaoImpl;
+import com.example.pole_digital_academy.Dao.exercice.IExercicieDao;
+import com.example.pole_digital_academy.Entities.User;
+import com.example.pole_digital_academy.Services.activity.IActivityService;
 
 public class DaoFactory {
     static UserDao userDaoInstance;
@@ -20,7 +24,7 @@ public class DaoFactory {
     static IParticipantDao participantDao;
     static IResponsibleTypeDao responsibleTypeDao;
     static IResponsibleDao responsibleDao;
-
+    static IExercicieDao exerciceDao;
 
 
     public static UserDao getUserDao() {
@@ -42,6 +46,13 @@ public class DaoFactory {
         }
         return activityDao;
     }
+    public static IExercicieDao getExerciceDao(){
+        if(exerciceDao==null){
+            exerciceDao=new ExerciceDaoImpl();
+        }
+        return exerciceDao;
+    }
+
 
     public static IParticipantDao getParticipantDao(){
         if(participantDao==null){
