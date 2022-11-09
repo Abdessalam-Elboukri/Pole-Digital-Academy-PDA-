@@ -27,7 +27,7 @@ public class ExerciceServiceImp implements IExerciceService {
     @Override
     public int insert(Exercice entity) throws Exception {
         DaoFactory.getExerciceDao().insert(entity);
-        return 0;
+        return 1;
     }
 
     @Override

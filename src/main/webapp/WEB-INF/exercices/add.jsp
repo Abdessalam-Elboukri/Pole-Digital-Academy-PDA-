@@ -12,6 +12,7 @@
 <%@ page import="com.example.pole_digital_academy.utils.Constants" %>
 <%@ page import="com.example.pole_digital_academy.Entities.Responsible" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.pole_digital_academy.Entities.Exercice" %>
 <html>
 <head>
     <title>Add An Activity </title>
@@ -25,51 +26,45 @@
         out.println(errors.stream().map(e->"<li>"+e+"</li>").collect(Collectors.joining("")));
 %>
 </ul>
-<%--
-<c:set var="errors" value="${requestScope.get(Constants.KEY_VALIDATION_ERRORS)}" scope="request"/>
-<c:if test="${errors!=null}">
-    <% request.setAttribute("errors",((List<String>)request.getAttribute("errors"))); %>
-    <ul>
-    <c:forEach step="1" begin="0" end="${errors.size()}" var="i">
-        <li><c:out value="${errrors.get(i)}"/></li>
-    </c:forEach>
-    </ul>
-</c:if>
---%>
-<form action="" method="post" class="w-2/3 items-center">
-    <div class="flex flex-row gap-1 items center">
-        <label for="${Activity.KEY_TITLE}" class="w-1/2">Activity name:</label>
-        <input type="text" class="w-1/2" name="${Activity.KEY_TITLE}" id="${Activity.KEY_TITLE}" placeholder="activity title">
-    </div>
-<div class="flex flex-row gap-1 items center">
-        <label for="${Activity.KEY_DESCRIPTION}" class="w-1/2">Activity description:</label>
-        <input type="text" class="w-1/2" name="${Activity.KEY_DESCRIPTION}" id="${Activity.KEY_DESCRIPTION}" placeholder="activity description">
-    </div>
-<div class="flex flex-row gap-1 items center">
-        <label for="${Activity.KEY_START_DATE}" class="w-1/2">Start date:</label>
-        <input type="date" class="w-1/2" name="${Activity.KEY_START_DATE}" id="${Activity.KEY_START_DATE}">
-    </div>
-<div class="flex flex-row gap-1 items center">
-        <label for="${Activity.KEY_END_DATE}" class="w-1/2">End date:</label>
-        <input type="date" class="w-1/2" name="${Activity.KEY_END_DATE}" id="${Activity.KEY_END_DATE}">
-    </div>
-    <!--TODO continue here -->
-<div class="flex flex-row gap-1 items center">
-    <label for="${Activity.KEY_ACTIVITY_TYPE}" class="w-1/2">Activity type:</label>
-    <select class="w-1/2" name="${Activity.KEY_ACTIVITY_TYPE}" title="activity type" id="${Activity.KEY_ACTIVITY_TYPE}">
-        <%= Stream.of(Activity.ActivityTypeEnum.values()).map(t->"<option value=\""+t.ordinal()+"\">"+t.toString()+"</option>").collect(Collectors.joining("")) %>
-    </select>
 
-    </div>
-<div class="flex flex-row gap-1 items center">
-    <label for="${Activity.KEY_RESPONSIBLE_ID}" class="w-1/2">Responsible for this activity:</label>
-    <select class="w-1/2" name="${Activity.KEY_RESPONSIBLE_ID}" title="activity type" id="${Activity.KEY_RESPONSIBLE_ID}">
-        <%= ((List<Responsible>)request.getAttribute(Constants.KEY_RESPONSIBLES)).stream().map(r->"<option value=\""+r.getId()+"\">"+r.getLastName()+" "+r.getFirstName()+"</option>").collect(Collectors.joining("")) %>
-    </select>
-    </div>
-    <input type="submit" value="send">
+    <form action="" method="post" class="w-2/3 items-center">
+        <div class="flex flex-row gap-1 items center">
+            <label for="${Exercice.KEY_TITLE}" class="w-1/2">Exercice name:</label>
+            <input type="text" class="w-1/2" name="${Exercice.KEY_TITLE}" id="${Exercice.KEY_TITLE}" placeholder="Exercice title"
+            >
+        </div>
+        <div class="flex flex-row gap-1 items center">
+            <label for="${Exercice.KEY_START_DATE}" class="w-1/2">Start date:</label>
+            <input type="date" class="w-1/2" name="${Exercice.KEY_START_DATE}" id="${Exercice.KEY_START_DATE}"
+            >
+        </div>
+        <div class="flex flex-row gap-1 items center">
+            <label for="${Exercice.KEY_END_DATE}" class="w-1/2">End date:</label>
+            <input type="date" class="w-1/2" name="${Exercice.KEY_END_DATE}" id="${Exercice.KEY_END_DATE}"
 
+            >
+        </div>
+        <div class="flex flex-row gap-1 items center">
+            <label for="${Exercice.KEY_YEAR}" class="w-1/2">Year:</label>
+            <input type="number" min="1900" max="2099" step="1" value="2022" class="w-1/2" name="${Exercice.KEY_YEAR}" id="${Exercice.KEY_YEAR}"
+            >
+        </div>
 
-</form>
+        <div class="flex flex-row gap-1 items center">
+            <label for="${Exercice.KEY_STATUS}" class="w-1/2">Exercice status:</label>
+            <select class="w-1/2" name="${Exercice.KEY_STATUS}" title="Exercice status" id="${Exercice.KEY_STATUS}" >
+                <%= Stream.of(Exercice.ExerciceStatusEnum.values()).map(t->"<option value=\""+t.ordinal()+"\">"+t.toString()+"</option>").collect(Collectors.joining("")) %>
+            </select>
+        </div>
+
+        <div class="flex flex-row gap-1 items center">
+            <label for="${Exercice.KEY_ACTIVITY_ID}" class="w-1/2">Activité mère:</label>
+            <select class="w-1/2" name="${Exercice.KEY_ACTIVITY_ID}" title="Exercice type" id="${Exercice.KEY_ACTIVITY_ID}" >
+                <%= ((List<Activity>)request.getAttribute(Constants.KEY_ACTIVITIES_LIST)).stream().map(r->"<option value=\""+r.getId()+"\">"+r.getTitle()+"</option>").collect(Collectors.joining("")) %>
+            </select>
+        </div>
+        <input type="submit" value="send">
+
+    </form>
 </body>
 </html>

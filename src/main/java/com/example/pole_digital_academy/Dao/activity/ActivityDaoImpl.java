@@ -30,7 +30,7 @@ public class ActivityDaoImpl implements IActivityDao {
     public Activity findById(int id) throws Exception {
         EntityManager em = EntityManagerFactory.getEntityManager();
         Activity activity=em.find(Activity.class,id);
-        em.detach(activity);
+        //em.detach(activity);
         return activity;
     }
 

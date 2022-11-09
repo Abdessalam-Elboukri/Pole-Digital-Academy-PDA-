@@ -1,11 +1,9 @@
 package com.example.pole_digital_academy.Servlets;
 
 import com.example.pole_digital_academy.Entities.Exercice;
-import com.example.pole_digital_academy.Entities.Responsible;
 import com.example.pole_digital_academy.Services.ServicesFactory;
 import com.example.pole_digital_academy.Services.exercice.IExerciceService;
 import com.example.pole_digital_academy.utils.Constants;
-import com.example.pole_digital_academy.utils.EntityManagerFactory;
 import com.example.pole_digital_academy.utils.InputValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -41,7 +39,12 @@ public class ExercicesServlet extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/exercices/list.jsp").forward(req,resp);
                 break;
             case "/exercices/add":
+                try {
+                    req.setAttribute(Constants.KEY_ACTIVITIES_LIST,ServicesFactory.getActivityService().getAll());
                     req.getRequestDispatcher("/WEB-INF/exercices/add.jsp").forward(req,resp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case "/exercices/edit":
                     Exercice exerciceToEdit=null;
@@ -80,14 +83,14 @@ public class ExercicesServlet extends HttpServlet {
         switch(requestUrl){
             case "/exercices/add":
                   try {
-                    processAddexercice(req,resp);
+                    processAddExercice(req,resp);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case "/exercices/edit":
                 try {
-                    processEditexercice(req,resp);
+                    processEditExercice(req,resp);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -98,7 +101,7 @@ public class ExercicesServlet extends HttpServlet {
 
     }
 
-    private void processEditexercice(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    private void processEditExercice(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         Exercice exercice=ServicesFactory.getExercicesService().findById(Integer.parseInt(req.getParameter(Exercice.KEY_ID)));
 
         exercice.setTitle(req.getParameter(exercice.KEY_TITLE));
@@ -127,6 +130,7 @@ public class ExercicesServlet extends HttpServlet {
             exercice.setEndDate(LocalDate.now());
         }
         exercice.setYear(Integer.parseInt(req.getParameter(Exercice.KEY_YEAR)));
+        exercice.setActivity(ServicesFactory.getActivityService().findById(Integer.parseInt(req.getParameter(Exercice.KEY_ACTIVITY_ID))));
 
         List<String> validationErrors=new ArrayList<>();
         if(InputValidator.isExerciceValid(exercice,validationErrors) ){
@@ -162,7 +166,7 @@ public class ExercicesServlet extends HttpServlet {
         };
     }
 
-    private void processAddexercice(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    private void processAddExercice(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         Exercice exercice=new Exercice();
         exercice.setTitle(req.getParameter(exercice.KEY_TITLE));
         exercice.setStatus(Exercice.ExerciceStatusEnum.IN_PROGRESS);
@@ -181,6 +185,9 @@ public class ExercicesServlet extends HttpServlet {
             e.printStackTrace();
             exercice.setEndDate(LocalDate.now());
         }
+        exercice.setYear(Integer.parseInt(req.getParameter(Exercice.KEY_YEAR)));
+
+        exercice.setActivity(ServicesFactory.getActivityService().findById(Integer.parseInt(req.getParameter(Exercice.KEY_ACTIVITY_ID))));
         List<String> validationErrors=new ArrayList<>();
         if(InputValidator.isExerciceValid(exercice,validationErrors) ){
             //if the data is valid we add the new  exercice and redirect the user to the activities list page
