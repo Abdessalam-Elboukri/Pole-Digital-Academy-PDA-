@@ -44,7 +44,18 @@ public class ActivitiesServlet extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/activities/list.jsp").forward(req,resp);
                 break;
             case "/activities/add":
-                    req.getRequestDispatcher("/WEB-INF/activities/add.jsp").forward(req,resp);
+
+                //TODO call the responsibles service instead here == >  (done)
+                try {
+                    List<Responsible> responsibles = ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
+                    req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //List<Responsible> responsibles=EntityManagerFactory.getEntityManager().createQuery("from Responsible").getResultList();
+                req.getRequestDispatcher("/WEB-INF/activities/add.jsp").forward(req,resp);
+                //resp.getWriter().write("ddd");
+
                 break;
                 case "/activities/edit":
                     Activity activityToEdit=null;

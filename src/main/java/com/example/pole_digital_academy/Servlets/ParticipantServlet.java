@@ -6,6 +6,7 @@ import com.example.pole_digital_academy.Entities.User;
 import com.example.pole_digital_academy.Services.Participant.IParticipantService;
 import com.example.pole_digital_academy.Services.Participant.ParticipantServiceImp;
 import com.example.pole_digital_academy.Services.ServicesFactory;
+import com.example.pole_digital_academy.utils.Constants;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @WebServlet(name = "participantServlet", urlPatterns ={ "/participants","/participants/add"})
@@ -23,6 +25,14 @@ public class ParticipantServlet extends HttpServlet {
         String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
         switch (requestUrl){
             case "/participants":
+                List<Participant> participantList = null;
+
+                try {
+                    participantList=ServicesFactory.getParticipantService().getAll();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                req.setAttribute(Constants.KEY_PARTICIPANTS_LIST,participantList);
                 req.getRequestDispatcher("/WEB-INF/participants/list.jsp").forward(req,resp);
             break;
 

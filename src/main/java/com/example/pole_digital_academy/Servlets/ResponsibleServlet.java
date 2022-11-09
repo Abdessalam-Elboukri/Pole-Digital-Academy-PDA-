@@ -2,7 +2,6 @@ package com.example.pole_digital_academy.Servlets;
 
 
 
-import com.example.pole_digital_academy.Entities.Activity;
 import com.example.pole_digital_academy.Entities.Responsible;
 import com.example.pole_digital_academy.Entities.ResponsibleType;
 import com.example.pole_digital_academy.Entities.User;
@@ -26,6 +25,13 @@ public class ResponsibleServlet extends HttpServlet {
         String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
         switch (requestUrl){
             case "/responsibles":
+                List<Responsible> responsibles ;
+                try {
+                    responsibles = ServicesFactory.getResponsibleService().getAll();
+                    req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 req.getRequestDispatcher("/WEB-INF/responsible/list.jsp").forward(req,resp);
                 break;
 
@@ -60,7 +66,7 @@ public class ResponsibleServlet extends HttpServlet {
                 responsible.setLastName(req.getParameter("lastname"));
                 responsible.setEmail(req.getParameter("email"));
                 responsible.setPhone(req.getParameter("phone"));
-                responsible.setRole(User.Role.PARTICIPANT);
+                responsible.setRole(User.Role.RESPONSIBLE);
                 responsible.setUserStatus(User.UserStatusEnum.ACTIVE);
                 try {
                     ResponsibleType restype  = ServicesFactory.getResponsibleTypeService().findById(Integer.parseInt(req.getParameter("responsableType")));
