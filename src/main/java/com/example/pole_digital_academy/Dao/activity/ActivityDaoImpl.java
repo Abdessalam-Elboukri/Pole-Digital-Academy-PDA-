@@ -10,23 +10,43 @@ import java.util.List;
 public class ActivityDaoImpl implements IActivityDao {
     @Override
     public int delete(int id) throws Exception {
-        EntityManagerFactory.getEntityManager().remove(EntityManagerFactory.getEntityManager().find(Activity.class,id));
+        System.out.println("Dao got id of "+id);
+        Activity activityToDelete= EntityManagerFactory.getEntityManager().find(Activity.class,id);
+        EntityManager em=EntityManagerFactory.getEntityManager();
+        em.getTransaction().begin();
+        em.remove(activityToDelete);
+        em.getTransaction().commit();
         return 1;
     }
 
     @Override
     public List<Activity> getAll() throws Exception {
-        return EntityManagerFactory.getEntityManager().createQuery("SELECT a FROM Activity a",Activity.class).getResultList();
+        EntityManager em = EntityManagerFactory.getEntityManager();
+        List<Activity> activities=em.createQuery("SELECT a FROM Activity a",Activity.class).getResultList();
+        return activities;
     }
 
     @Override
     public Activity findById(int id) throws Exception {
-        return null;
+        EntityManager em = EntityManagerFactory.getEntityManager();
+        Activity activity=em.find(Activity.class,id);
+        //em.detach(activity);
+        return activity;
     }
 
 
     @Override
     public int update(Activity entity) throws Exception {
-        return 0;
+        try {
+            EntityManager em = EntityManagerFactory.getEntityManager();
+            em.getTransaction().begin();
+            em.persist(entity);
+            em.getTransaction().commit();
+            em.close();
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

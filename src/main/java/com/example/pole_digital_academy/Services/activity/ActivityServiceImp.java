@@ -19,8 +19,9 @@ public class ActivityServiceImp implements IActivityService{
     }
 
     @Override
-    public Activity findById(int id)  {
-        return null;
+    public Activity findById(int id) throws Exception {
+
+        return DaoFactory.getActivityDao().findById(id);
     }
 
     @Override
@@ -30,7 +31,8 @@ public class ActivityServiceImp implements IActivityService{
     }
 
     @Override
-    public int update(Activity entity)  {
-        return 0;
+    public int update(Activity entity) throws Exception {
+
+        return DaoFactory.getActivityDao().update(entity);
     }
 }

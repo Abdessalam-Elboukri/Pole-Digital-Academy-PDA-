@@ -7,6 +7,15 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "exercices")
 public class Exercice {
+    public static final String KEY_ID="id";
+    public static final String KEY_TITLE="title";
+    public static final String KEY_YEAR="year";
+    public static final String KEY_STATUS="status";
+    public static final String KEY_START_DATE="start_date";
+    public static final String KEY_END_DATE="end_date";
+    public static final String KEY_ACTIVITY_ID="activity_id";
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
@@ -40,8 +49,8 @@ public class Exercice {
         ExerciceStatusEnum(String name){
             this.name=name;
         }
-
-        public String getName() {
+        @Override
+        public String toString() {
             return name;
         }
     }
