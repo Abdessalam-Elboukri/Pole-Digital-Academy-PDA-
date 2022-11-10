@@ -125,7 +125,7 @@
                                         </span>
                                         <%}%>
                                     </td>
-                                    <td><a href="${URI}/edit?id=<%= p.getId()%>">edit</a></td>
+                                    <td><a href="${URI}/update?id=<%= p.getId()%>">edit</a></td>
                                 </tr>
                                 <% }%>
                                 </tbody>

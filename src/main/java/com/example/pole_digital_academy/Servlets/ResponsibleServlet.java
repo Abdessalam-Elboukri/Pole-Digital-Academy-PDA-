@@ -22,7 +22,7 @@ public class ResponsibleServlet extends HttpServlet {
     public String $url ;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
         switch (requestUrl){
             case "/responsibles":
                 List<Responsible> responsibles ;
@@ -58,7 +58,7 @@ public class ResponsibleServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
         switch(requestUrl){
             case "/responsibles/add":
                 Responsible responsible = new Responsible();
