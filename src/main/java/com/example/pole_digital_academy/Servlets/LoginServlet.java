@@ -12,13 +12,7 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", value = "/admin-login")
 public class LoginServlet extends HttpServlet {
-
-
           private IAdminService auth =new AdminServiceImp();
-
-        /*public void init(){
-
-        }*/
 
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,15 +24,15 @@ public class LoginServlet extends HttpServlet {
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             String email = request.getParameter("Email");
             String password = request.getParameter("Password");
-
-            //System.out.println(auth.login(email,password));
             try {
                 if(auth.login(email, password)){
                     int adminId = new AdminServiceImp().findByEmail(email).getId();
                     User.Role authRole = new AdminServiceImp().findByEmail(email).getRole();
+                    String adminName = new AdminServiceImp().findByEmail(email).getFirstName();
                     HttpSession session = request.getSession();
                     session.setAttribute("AdminId",adminId);
-                    session.setAttribute("authRole",authRole );
+                    session.setAttribute("authRole",authRole);
+                    session.setAttribute("adminName",adminName);
                     response.sendRedirect("activities");
                 }else{
                     RequestDispatcher reject=request.getRequestDispatcher("login.jsp");
