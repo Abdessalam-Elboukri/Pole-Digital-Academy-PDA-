@@ -3,9 +3,8 @@ package com.example.pole_digital_academy.Servlets;
 
 import com.example.pole_digital_academy.Entities.Participant;
 import com.example.pole_digital_academy.Entities.User;
-import com.example.pole_digital_academy.Services.Participant.IParticipantService;
-import com.example.pole_digital_academy.Services.Participant.ParticipantServiceImp;
 import com.example.pole_digital_academy.Services.ServicesFactory;
+import com.example.pole_digital_academy.utils.Constants;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,16 +12,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 
-@WebServlet(name = "participantServlet", urlPatterns ={ "/participants","/participants/add"})
+@WebServlet(name = "participantServlet", urlPatterns ={ "/participants","/participants/add","/participants/update","/participants/delete"})
 public class ParticipantServlet extends HttpServlet {
     public String $url ;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
         switch (requestUrl){
             case "/participants":
+                List<Participant> participantList = null;
+                try {
+                    participantList=ServicesFactory.getParticipantService().getAll();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                req.setAttribute(Constants.KEY_PARTICIPANTS_LIST,participantList);
                 req.getRequestDispatcher("/WEB-INF/participants/list.jsp").forward(req,resp);
             break;
 
@@ -31,6 +38,14 @@ public class ParticipantServlet extends HttpServlet {
                 break;
 
             case "/participants/update":
+                Participant editParticipant=null;
+                try {
+                    editParticipant = ServicesFactory.getParticipantService().findById(Integer.parseInt(req.getParameter("id")));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                req.setAttribute(Constants.PARTICIPANT_TO_Edit,editParticipant);
+                System.out.println("============here=================");
                 req.getRequestDispatcher("/WEB-INF/participants/update.jsp").forward(req,resp);
                 break;
 
@@ -41,7 +56,8 @@ public class ParticipantServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+
         switch(requestUrl){
             case "/participants/add":
                 Participant participant = new Participant();
@@ -60,9 +76,13 @@ public class ParticipantServlet extends HttpServlet {
                 }
 
                 break;
-            case "/participants/edit":
-                //TODO:: handle update form data
-                // validate then send to business layer to handle data
+            case "/participants/update":
+
+                try {
+                    UpdateParticipant(req,resp);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 break;
             default:
                 resp.getWriter().write("no route mapping yet");
@@ -70,6 +90,26 @@ public class ParticipantServlet extends HttpServlet {
 
     }
 
+    private void UpdateParticipant(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        Participant participant_to_Edit= ServicesFactory.getParticipantService().findById(Integer.parseInt(req.getParameter("id")));
+
+        participant_to_Edit.setFirstName(req.getParameter("firstname"));
+        participant_to_Edit.setLastName(req.getParameter("lastname"));
+        participant_to_Edit.setEmail(req.getParameter("email"));
+        participant_to_Edit.setPhone(req.getParameter("phone"));
+        participant_to_Edit.setDomaine(req.getParameter("domaine"));
+
+        String message ="";
+        try{
+            ServicesFactory.getParticipantService().update(participant_to_Edit);
+        }catch (Exception e){
+        e.printStackTrace();
+        message="Error While updating participant";
+        } finally {
+            resp.sendRedirect(req.getContextPath() + "/participants");
+        }
+    }
 
 
-}
+    }

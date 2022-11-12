@@ -1,10 +1,12 @@
-<%--
+<%@ page import="org.hibernate.Session" %><%--
   Created by IntelliJ IDEA.
   User: abdes
   Date: 21/10/2022
   Time: 10:54
   To change this template use File | Settings | File Templates.
 --%>
+<%-- <% if( session.getAttribute("authRole") == null){ %> --%>
+<%= session.getAttribute("adminName")%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -52,4 +54,8 @@
     </div>
 </body>
 </html>
-
+<%--<%}else {
+    request.getRequestDispatcher("/WEB-INF/activities/list.jsp");
+}
+%>
+--%>
