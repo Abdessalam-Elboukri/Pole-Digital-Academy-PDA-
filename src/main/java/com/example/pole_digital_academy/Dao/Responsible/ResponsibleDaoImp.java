@@ -14,17 +14,24 @@ public class ResponsibleDaoImp implements IResponsibleDao{
 
     @Override
     public List<Responsible> getAll() throws Exception {
-         return EntityManagerFactory.getEntityManager().createQuery("SELECT res FROM Responsible res", Responsible.class).getResultList();
+        return EntityManagerFactory.getEntityManager().createQuery("SELECT res FROM Responsible res ", Responsible.class).getResultList();
+
+    }
+
+
+    public List<Responsible> getNonOccupedResponsibles() throws Exception {
+         return EntityManagerFactory.getEntityManager().createQuery("SELECT res FROM Responsible res WHERE NOT EXISTS ( SELECT ac FROM Activity ac where res.id = ac.responsible.id) ", Responsible.class).getResultList();
     }
 
     @Override
     public Responsible findById(int id) throws Exception {
         EntityManager em = EntityManagerFactory.getEntityManager();
-        Responsible user = em.find(Responsible.class, id);
-        em.persist(user);
+        em.getTransaction().begin();
+        Responsible responsible = em.find(Responsible.class, id);
+        em.persist(responsible);
 
         em.getTransaction().commit();
-        return null;
+        return responsible;
     }
 
     @Override

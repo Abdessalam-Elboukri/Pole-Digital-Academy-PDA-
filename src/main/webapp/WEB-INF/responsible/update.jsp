@@ -1,3 +1,11 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: abdes
+  Date: 10/11/2022
+  Time: 12:06
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.pole_digital_academy.Entities.Participant" %>
 <%@ page import="com.example.pole_digital_academy.utils.Constants" %><%--
   Created by IntelliJ IDEA.
@@ -22,16 +30,16 @@
 
     <% Participant p =(Participant) request.getAttribute(Constants.PARTICIPANT_TO_Edit); %>
 
-            <form method="post" class="my-10">
+    <form method="post" class="my-10">
         <input type="hidden" name="id" value="<%= p.getId()%>">
         <div class="flex flex-col space-y-5">
             <label for="firstname">
-                <p class="font-medium text-slate-700 pb-2">First Name</p>
-                <input id="firstname" name="firstname" type="text" value="<%=p.getFirstName()%>" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your firstname">
+                <p class="w-full font-medium text-slate-700 pb-2">First Name</p>
+                <input id="firstname" name="firstname" type="text" value="<%=p.getFirstName()%>" class="w-full py-2 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your firstname">
             </label>
             <label for="lastname">
                 <p class="font-medium text-slate-700 pb-2">Last Name</p>
-                <input id="lastname" name="lastname" type="text" value="<%=p.getLastName()%>" class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your lastname">
+                <input id="lastname" name="lastname" type="text" value="<%=p.getLastName()%>" class="w-full py-2 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your lastname">
             </label>
             <label for="email">
                 <p class="font-medium text-slate-700 pb-2">Email address</p>
@@ -56,3 +64,5 @@
 </body>
 </html>
 
+
+</html>

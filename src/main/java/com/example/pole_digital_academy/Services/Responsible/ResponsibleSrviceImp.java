@@ -16,6 +16,10 @@ public class ResponsibleSrviceImp implements IResponsibleService{
         return DaoFactory.getResponsibleDao().getAll();
     }
 
+    public List<Responsible> getNonOccupedResponsibles() throws Exception {
+        return DaoFactory.getResponsibleDao().getNonOccupedResponsibles();
+    }
+
     @Override
     public Responsible findById(int id) throws Exception {
         return DaoFactory.getResponsibleDao().findById(id);
@@ -23,6 +27,7 @@ public class ResponsibleSrviceImp implements IResponsibleService{
 
     @Override
     public int insert(Responsible entity) throws Exception {
+        DaoFactory.getResponsibleDao().insert(entity);
         return 0;
     }
 

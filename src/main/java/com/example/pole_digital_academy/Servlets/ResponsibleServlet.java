@@ -22,9 +22,16 @@ public class ResponsibleServlet extends HttpServlet {
     public String $url ;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
         switch (requestUrl){
             case "/responsibles":
+                List<Responsible> responsibles ;
+                try {
+                    responsibles = ServicesFactory.getResponsibleService().getAll();
+                    req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 req.getRequestDispatcher("/WEB-INF/responsible/list.jsp").forward(req,resp);
                 break;
 
@@ -51,7 +58,7 @@ public class ResponsibleServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war","");
+        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
         switch(requestUrl){
             case "/responsibles/add":
                 Responsible responsible = new Responsible();
@@ -59,9 +66,15 @@ public class ResponsibleServlet extends HttpServlet {
                 responsible.setLastName(req.getParameter("lastname"));
                 responsible.setEmail(req.getParameter("email"));
                 responsible.setPhone(req.getParameter("phone"));
-                responsible.setRole(User.Role.PARTICIPANT);
+                responsible.setRole(User.Role.RESPONSIBLE);
                 responsible.setUserStatus(User.UserStatusEnum.ACTIVE);
-                //responsible.setRes_type(Long.parseLong(req.getParameter("responsibleType")));
+                try {
+                    ResponsibleType restype  = ServicesFactory.getResponsibleTypeService().findById(Integer.parseInt(req.getParameter("responsableType")));
+                    System.out.println(restype);
+                    responsible.setRes_type(restype);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 responsible.setDomaine(req.getParameter("domaine"));
 
                 try {
