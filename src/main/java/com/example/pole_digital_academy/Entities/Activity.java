@@ -1,10 +1,18 @@
 package com.example.pole_digital_academy.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Activity {
     public static final String KEY_ID="id";
@@ -22,85 +30,16 @@ public class Activity {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-
     @Enumerated(EnumType.ORDINAL)
     private ActivityTypeEnum activityType=null;
-
     @Enumerated(EnumType.ORDINAL)
     private ActivityStatusEnum status=null;
-
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "responsible_id",referencedColumnName = "id")
     private Responsible responsible;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "activity")
+    private List<Exercice> exercices=new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Exercice> exercices;
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public ActivityTypeEnum getActivityType() {
-        return activityType;
-    }
-
-    public void setActivityType(ActivityTypeEnum activityType) {
-        this.activityType = activityType;
-    }
-
-    public Responsible getResponsible() {
-        return responsible;
-    }
-
-    public void setResponsible(Responsible responsible) {
-        this.responsible = responsible;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public ActivityStatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(ActivityStatusEnum status) {
-        this.status = status;
-    }
-
-    public List<Exercice> getExercices() {
-        return exercices;
-    }
-
-    public void setExercices(List<Exercice> exercices) {
-        this.exercices = exercices;
-    }
     public enum ActivityTypeEnum{
         COURSE("Formation"),TALK("Talk"),EVENT("Evénement");
         private String name;
@@ -125,9 +64,4 @@ public class Activity {
             return this.name;
         }
     }
-
-    public int getId() {
-        return id;
-    }
-
 }
