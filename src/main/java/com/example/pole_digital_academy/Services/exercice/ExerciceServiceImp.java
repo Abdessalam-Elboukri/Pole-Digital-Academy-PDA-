@@ -36,7 +36,7 @@ public class ExerciceServiceImp implements IExerciceService {
     }
 
     @Override
-    public List<Exercice> getAllForActivity(int activityId) throws Exception {
-        return DaoFactory.getActivityDao().findById(activityId).getExercices();
+    public List<Exercice> getAllForActivity(int activityId) {
+        return DaoFactory.getExerciceDao().getAllForActivity(activityId);
     }
 }

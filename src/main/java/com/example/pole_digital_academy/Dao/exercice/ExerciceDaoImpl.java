@@ -49,4 +49,12 @@ public class ExerciceDaoImpl implements IExercicieDao{
 
     }
 
+    @Override
+    public List<Exercice> getAllForActivity(int activityId) {
+          EntityManager em=EntityManagerFactory.getEntityManager();
+          Query q=em.createQuery("SELECT e FROM Exercice e WHERE e.activity.id=:activityId");
+          q.setParameter("activityId",activityId);
+          return (List<Exercice>) q.getResultList();
+
+    }
 }

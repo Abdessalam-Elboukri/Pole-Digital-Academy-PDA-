@@ -6,5 +6,5 @@ import com.example.pole_digital_academy.Services.IService;
 import java.util.List;
 
 public interface IExerciceService extends IService<Exercice> {
-    List<Exercice> getAllForActivity(int activityId) throws Exception;
+    List<Exercice> getAllForActivity(int activityId);
 }

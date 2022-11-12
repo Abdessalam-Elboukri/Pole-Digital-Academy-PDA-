@@ -9,3 +9,4 @@ Pole Digital Academy.iml
 src/main/resources/META-INF/persistence.xml
 data
 src/test
+node_modules

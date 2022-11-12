@@ -30,6 +30,10 @@ public class ExercicesServlet extends HttpServlet {
             case "/exercices":
                 List<Exercice> exercices;
                 try {
+                    String activityId=req.getParameter("activity_id");
+                    if(activityId!=null)
+                        exercices=ServicesFactory.getExercicesService().getAllForActivity(Integer.parseInt(activityId));
+                    else
                     exercices=ServicesFactory.getExercicesService().getAll();
                 } catch (Exception e) {
                     e.printStackTrace();
