@@ -7,8 +7,6 @@ import com.example.pole_digital_academy.Entities.Participant;
 
 import java.util.List;
 
-import static com.example.pole_digital_academy.Dao.DaoFactory.getParticipantDao;
-
 public class ParticipantServiceImp implements IParticipantService{
     IParticipantDao participantDao =new ParticipantDaoImp();
 
@@ -37,5 +35,15 @@ public class ParticipantServiceImp implements IParticipantService{
     public int update(Participant entity) throws Exception {
         DaoFactory.getParticipantDao().update1(entity);
         return 0;
+    }
+
+    @Override
+    public List<Participant> getAllPNotInSelActivity(int id) throws Exception {
+        return DaoFactory.getParticipantDao().getAllPNotInSelActivity(id);
+    }
+
+    @Override
+    public List<Participant> getAllPInSelActivity(int id) throws Exception {
+        return DaoFactory.getParticipantDao().getAllPInSelActivity(id);
     }
 }

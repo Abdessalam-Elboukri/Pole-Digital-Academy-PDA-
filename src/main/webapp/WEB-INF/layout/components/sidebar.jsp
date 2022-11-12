@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
         <% // i will change the svg with icons %>
-            <div  class=" w-64 h-screen  sm:sticky bg-gray-800 shadow  flex-col justify-between hidden sm:flex">
+            <div  class=" w-64 h-screen sm:sticky top-0 bg-gray-800 shadow  flex-col justify-between hidden sm:flex">
                 <div class="px-8">
                     <div class="h-16 w-full flex items-center">
                         <h3 class="text-white bold ">PDAcademy</h3>

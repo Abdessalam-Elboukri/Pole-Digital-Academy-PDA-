@@ -36,18 +36,31 @@ public class ResponsibleServlet extends HttpServlet {
                 break;
 
             case "/responsibles/add":
-                List<ResponsibleType> responsibleTypesList;
                 try {
-                    responsibleTypesList = ServicesFactory.getResponsibleTypeService().getAll();
+                    getResponsibleTypesData(req,resp);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    throw new IOException(e.getMessage());
                 }
-                req.setAttribute(Constants.KEY_RESPONSIBLE_TYPES,responsibleTypesList);
                 req.getRequestDispatcher("/WEB-INF/responsible/add.jsp").forward(req,resp);
                 break;
 
             case "/responsibles/update":
+
+               Responsible editResponsible =null;
+
+                try {
+                    getResponsibleTypesData(req,resp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    editResponsible = ServicesFactory.getResponsibleService().findById(Integer.parseInt(req.getParameter("id")));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                req.setAttribute(Constants.KEY_RESPONSIBLE_TO_EDIT,editResponsible);
+                System.out.println(editResponsible);
                 req.getRequestDispatcher("/WEB-INF/responsible/update.jsp").forward(req,resp);
                 break;
 
@@ -84,14 +97,55 @@ public class ResponsibleServlet extends HttpServlet {
                 }
 
                 break;
-            case "/responsibles/edit":
-                //TODO:: handle update form data
-                // validate then send to business layer to handle data
+            case "/responsibles/update":
+                try {
+                    updateResponsible(req,resp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 resp.getWriter().write("no route mapping yet");
         };
 
+    }
+
+
+    private void  updateResponsible(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        Responsible responsible_to_edit= ServicesFactory.getResponsibleService().findById(Integer.parseInt(req.getParameter("responsibleId")));
+
+        responsible_to_edit.setFirstName(req.getParameter("firstname"));
+        responsible_to_edit.setLastName(req.getParameter("lastname"));
+        responsible_to_edit.setEmail(req.getParameter("email"));
+        responsible_to_edit.setPhone(req.getParameter("phone"));
+        responsible_to_edit.setDomaine(req.getParameter("domaine"));
+        ResponsibleType restype  = ServicesFactory.getResponsibleTypeService().findById(Integer.parseInt(req.getParameter("responsableType")));
+
+        System.out.println("============here");
+        responsible_to_edit.setRes_type(restype);
+
+        System.out.println("=============>" + responsible_to_edit);
+        String message ="";
+        try{
+            ServicesFactory.getResponsibleService().update(responsible_to_edit);
+        }catch (Exception e){
+            e.printStackTrace();
+            message="Error While updating this responsible";
+        } finally {
+            resp.sendRedirect(req.getContextPath() + "/responsibles");
+        }
+    }
+
+
+    private void getResponsibleTypesData(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        List<ResponsibleType> responsibleTypesList;
+        try {
+            responsibleTypesList = ServicesFactory.getResponsibleTypeService().getAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IOException(e.getMessage());
+        }
+        req.setAttribute(Constants.KEY_RESPONSIBLE_TYPES,responsibleTypesList);
     }
 
 
