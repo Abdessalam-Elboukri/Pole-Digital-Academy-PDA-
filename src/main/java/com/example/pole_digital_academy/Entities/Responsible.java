@@ -12,8 +12,21 @@ public class Responsible extends User{
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "res_type", unique = false, referencedColumnName = "id")
     private ResponsibleType res_type;
-    @OneToMany
+
+    public List<Activity> getActivityList() {
+        return activityList;
+    }
+
+    public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
+    }
+
+    @OneToMany(mappedBy = "responsible")
     private List<Activity> activityList;
+
+    public Responsible() {
+    }
+
     public String getDomaine() {
         return domaine;
     }

@@ -21,6 +21,9 @@
     if(msg!=null){
     out.print("<p>"+msg+"</p>");
 };%>
+<c:if test="${!empty exercisesForActivity}">
+    <c:out value="Exercises for activity \"${exercisesForActivity}\""/>
+</c:if>
 <h1 class="font-bold">Exercices list</h1>
 <% List<Exercice> exercices =((List<Exercice>)request.getAttribute(Constants.KEY_EXERCICES_LIST)); %>
 <div><a href="${URI}/add">add </a></div>

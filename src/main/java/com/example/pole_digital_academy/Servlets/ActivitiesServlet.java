@@ -45,6 +45,7 @@ public class ActivitiesServlet extends HttpServlet {
                     e.printStackTrace();
                     throw new IOException(e.getMessage());
                 }
+
                 req.setAttribute(Constants.KEY_ACTIVITIES_LIST,activities);
                 req.getRequestDispatcher("/WEB-INF/activities/list.jsp").forward(req,resp);
                 break;
