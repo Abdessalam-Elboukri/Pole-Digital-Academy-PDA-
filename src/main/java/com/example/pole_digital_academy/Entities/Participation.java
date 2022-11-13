@@ -11,6 +11,31 @@ public class Participation {
     private Activity activity;
     @OneToOne
     Participant participant;
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public Participant getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
+    }
+
+    public ParticipationTypeEnum getParticipationType() {
+        return participationType;
+    }
+
+    public void setParticipationType(ParticipationTypeEnum participationType) {
+        this.participationType = participationType;
+    }
+
     @Enumerated
     private ParticipationTypeEnum participationType;
     public Participation() {
