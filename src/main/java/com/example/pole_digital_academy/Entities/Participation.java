@@ -13,6 +13,31 @@ public class Participation {
     Participant participant;
     @Enumerated
     private ParticipationTypeEnum participationType;
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public Participant getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
+    }
+
+    public ParticipationTypeEnum getParticipationType() {
+        return participationType;
+    }
+
+    public void setParticipationType(ParticipationTypeEnum participationType) {
+        this.participationType = participationType;
+    }
+
     public Participation() {
     }
     public enum ParticipationTypeEnum{

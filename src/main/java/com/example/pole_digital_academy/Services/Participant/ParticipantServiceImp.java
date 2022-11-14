@@ -38,4 +38,14 @@ public class ParticipantServiceImp implements IParticipantService{
         DaoFactory.getParticipantDao().update1(entity);
         return 0;
     }
+
+    @Override
+    public List<Participant> getAllPNotInSelActivity(int id) throws Exception {
+        return DaoFactory.getParticipantDao().getAllPNotInSelActivity(id);
+    }
+
+    @Override
+    public List<Participant> getAllPInSelActivity(int id) throws Exception {
+        return DaoFactory.getParticipantDao().getAllPInSelActivity(id);
+    }
 }
