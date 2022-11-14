@@ -42,7 +42,7 @@ public class AdminServiceImp implements IAdminService{
     @Override
     public boolean login(String Email, String Password) throws Exception {
         Admin admin = DaoFactory.getAdminDao().findByEmail(Email);
-        if(admin.getEmail()==null){return false ;}
+        if(admin==null || admin.getEmail()==null){return false ;}
         return PasswordHasher.verify(admin.getPasswordHash(), Password);
     }
 

@@ -43,9 +43,16 @@ public class AdminDaoImp implements IAdminDao{
         System.out.println("here");
         Query query = em.createQuery(  "SELECT admin FROM Admin admin  where admin.email = :Email ", Admin.class);
         query.setParameter("Email", Email);
-        Admin admin = (Admin) query.getSingleResult();
-        System.out.println(admin.getRole());
-        return admin;
+        try {
+            Admin admin = (Admin) query.getSingleResult();
+            System.out.println(admin.getRole());
+            return admin;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+
     }
 
 }

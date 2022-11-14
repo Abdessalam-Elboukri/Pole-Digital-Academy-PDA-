@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>Manage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 <% List<Participant> participants_in =((List<Participant>) request.getAttribute(Constants.KEY_PARTICIPANTS_IN_LIST));  %>
