@@ -42,7 +42,6 @@ public class ParticipationServlet extends HttpServlet {
                     //list of participants that participate in the current activity
                     List<Participant> participants_in =ServicesFactory.getParticipantService().getAllPNotInSelActivity(Integer.parseInt((req.getParameter("id"))));
                     //list of participants that not participate in the current activity
-
                     List<Participant> participants_out =ServicesFactory.getParticipantService().getAllPInSelActivity(Integer.parseInt((req.getParameter("id"))));
                     req.setAttribute(Constants.KEY_ACTIVITY_TO_MANAGE,activity);
                     req.setAttribute(Constants.KEY_PARTICIPANTS_IN_LIST,participants_in);

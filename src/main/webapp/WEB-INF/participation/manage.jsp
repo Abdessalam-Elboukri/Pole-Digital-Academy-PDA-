@@ -26,7 +26,7 @@
             <%  for(Participant p : participants_in) { %>
                 <div class="flex ">
                     <label for="<%= p.getFirstName()+p.getId() %>"><%=p.getFirstName()+ "  " + p.getLastName()%></label>
-                    <input type="checkbox" value="<%=p.getId()%>" id="<%= p.getFirstName()+p.getId() %>" name="participant">
+                    <input type="checkbox" class="ms-4" value="<%=p.getId()%>" id="<%= p.getFirstName()+p.getId() %>" name="participant">
                 </div>
             <%}%>
             <input type="submit" value="Done" name="submit">
