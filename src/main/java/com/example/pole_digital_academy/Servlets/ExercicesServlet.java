@@ -34,7 +34,7 @@ public class ExercicesServlet extends HttpServlet {
                     if(activityId!=null)
                         exercices=ServicesFactory.getExercicesService().getAllForActivity(Integer.parseInt(activityId));
                     else
-                    exercices=ServicesFactory.getExercicesService().getAll();
+                        exercices=ServicesFactory.getExercicesService().getAll();
                 } catch (Exception e) {
                     e.printStackTrace();
                     throw new IOException(e.getMessage());
