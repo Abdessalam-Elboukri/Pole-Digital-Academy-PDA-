@@ -91,7 +91,7 @@ public class ParticipationServlet extends HttpServlet {
                 participation.setParticipant(p);
                 participation.setActivity(activity);
                 participation.setParticipationType(Participation.ParticipationTypeEnum.SIGNED_IN);
-                //ServicesFactory.getParticipationService().insert(participation);
+                ServicesFactory.getParticipationService().insert(participation);
             }
         }
 

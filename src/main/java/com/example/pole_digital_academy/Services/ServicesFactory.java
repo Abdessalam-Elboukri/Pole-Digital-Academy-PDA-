@@ -1,5 +1,6 @@
 package com.example.pole_digital_academy.Services;
 
+import com.example.pole_digital_academy.Dao.participation.IParticipationDao;
 import com.example.pole_digital_academy.Services.Participant.IParticipantService;
 import com.example.pole_digital_academy.Services.Participant.ParticipantServiceImp;
 import com.example.pole_digital_academy.Services.Responsible.IResponsibleService;
@@ -12,6 +13,8 @@ import com.example.pole_digital_academy.Services.activity.ActivityServiceImp;
 import com.example.pole_digital_academy.Services.activity.IActivityService;
 import com.example.pole_digital_academy.Services.exercice.ExerciceServiceImp;
 import com.example.pole_digital_academy.Services.exercice.IExerciceService;
+import com.example.pole_digital_academy.Services.participation.IParticipationService;
+import com.example.pole_digital_academy.Services.participation.ParticipationServiceImp;
 
 public class ServicesFactory {
     static IActivityService activityServiceInstance;
@@ -20,6 +23,7 @@ public class ServicesFactory {
     static IParticipantService participantService;
     static IResponsibleService responsibleService;
     static IResponsibleTypeService responsibleTypeService;
+    static IParticipationService participationService;
 
 
 
@@ -59,5 +63,11 @@ public class ServicesFactory {
         if(exerciceService==null)
             exerciceService=new ExerciceServiceImp();
         return exerciceService;
+    }
+
+    public static IParticipationService getParticipationService(){
+        if(participationService==null)
+            return participationService=new ParticipationServiceImp();
+        return participationService;
     }
 }
