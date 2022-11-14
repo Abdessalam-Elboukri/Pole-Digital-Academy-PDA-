@@ -14,8 +14,6 @@ import com.example.pole_digital_academy.Dao.activity.ActivityDaoImpl;
 import com.example.pole_digital_academy.Dao.activity.IActivityDao;
 import com.example.pole_digital_academy.Dao.exercice.ExerciceDaoImpl;
 import com.example.pole_digital_academy.Dao.exercice.IExercicieDao;
-import com.example.pole_digital_academy.Dao.participation.IParticipationDao;
-import com.example.pole_digital_academy.Dao.participation.ParticipationDaoImp;
 import com.example.pole_digital_academy.Entities.User;
 import com.example.pole_digital_academy.Services.activity.IActivityService;
 
@@ -27,54 +25,56 @@ public class DaoFactory {
     static IResponsibleTypeDao responsibleTypeDao;
     static IResponsibleDao responsibleDao;
     static IExercicieDao exerciceDao;
-    static IParticipationDao participationDao;
 
 
     public static UserDao getUserDao() {
-        if (userDaoInstance == null)
+        if (userDaoInstance == null) {
             return userDaoInstance = new UserDaoImp();
+        }
         return userDaoInstance;
     }
 
     public static IAdminDao getAdminDao(){
-        if(adminDaoInstance==null)
+        if(adminDaoInstance==null){
             return adminDaoInstance=new AdminDaoImp();
+        }
         return adminDaoInstance;
     }
-
     public static IActivityDao getActivityDao(){
-        if(activityDao==null)
+        if(activityDao==null){
             return activityDao=new ActivityDaoImpl();
+        }
         return activityDao;
     }
-
     public static IExercicieDao getExerciceDao(){
-        if(exerciceDao==null)
+        if(exerciceDao==null){
             exerciceDao=new ExerciceDaoImpl();
+        }
         return exerciceDao;
     }
 
+
     public static IParticipantDao getParticipantDao(){
-        if(participantDao==null)
+        if(participantDao==null){
             return participantDao = new ParticipantDaoImp();
+        }
         return participantDao;
     }
 
     public static IResponsibleTypeDao getResponsibleTypeDao(){
-        if(responsibleTypeDao==null)
+        if(responsibleTypeDao==null){
             return responsibleTypeDao = new ResponsibleTypeDaoImp();
+        }
         return responsibleTypeDao;
     }
 
     public static IResponsibleDao getResponsibleDao(){
-        if(responsibleDao==null)
+        if(responsibleDao==null){
             return responsibleDao = new ResponsibleDaoImp();
+        }
         return responsibleDao;
     }
 
-    public static IParticipationDao getParticipationDao(){
-        if (participationDao == null)
-            return participationDao = new ParticipationDaoImp();
-        return participationDao;
-    }
+
+
 }

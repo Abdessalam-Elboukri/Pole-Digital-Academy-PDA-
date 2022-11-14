@@ -9,16 +9,6 @@ import java.util.Date;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
-
-    public static final String KEY_ID="id";
-    public static final String KEY_FIRST_NAME="firstname";
-    public static final String KEY_LAST_NAME="lastname";
-    public static final String KEY_EMAIL="email";
-    public static final String KEY_PHONE="phone";
-    public static final String KEY_ROLE="role";
-    public static final String KEY_USER_STATUS="user_status";
-
-
     @Id
     @GeneratedValue (strategy = GenerationType.TABLE)
     private int id;
@@ -47,6 +37,7 @@ public class User {
         PARTICIPANT
     }
 
+
     public enum UserStatusEnum {
         ACTIVE,
         DISABLED
@@ -54,6 +45,16 @@ public class User {
 
 
     public User() {
+    }
+
+    public User(int id, String firstName, String lastName, String email, String phone, Role role, UserStatusEnum userStatus) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.userStatus = userStatus;
     }
 
     public int getId() {

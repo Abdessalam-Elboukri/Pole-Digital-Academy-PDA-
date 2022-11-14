@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "participants")
 public class Participant extends User{
-    public static final String KEY_DOMAINE="domaine";
 
     private String domaine;
 

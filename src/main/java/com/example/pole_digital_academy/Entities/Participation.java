@@ -11,6 +11,8 @@ public class Participation {
     private Activity activity;
     @OneToOne
     Participant participant;
+    @Enumerated
+    private ParticipationTypeEnum participationType;
 
     public Activity getActivity() {
         return activity;
@@ -36,8 +38,6 @@ public class Participation {
         this.participationType = participationType;
     }
 
-    @Enumerated
-    private ParticipationTypeEnum participationType;
     public Participation() {
     }
     public enum ParticipationTypeEnum{
