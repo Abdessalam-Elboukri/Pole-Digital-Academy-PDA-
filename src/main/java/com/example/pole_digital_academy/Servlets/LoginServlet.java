@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", value = "/admin-login")
+@WebServlet(name = "LoginServlet", urlPatterns = "/admin-login")
 public class LoginServlet extends HttpServlet {
           private IAdminService auth =new AdminServiceImp();
 
@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
                 }else{
                     RequestDispatcher reject=request.getRequestDispatcher("login.jsp");
                     reject.include(request,response);
-                    response.sendRedirect(request.getContextPath() + "/admin-login");
+                    response.sendRedirect(request.getContextPath() + "/admin-login?message=Wrong Authentication information");
                 }
             } catch (Exception e) {
                 e.printStackTrace();

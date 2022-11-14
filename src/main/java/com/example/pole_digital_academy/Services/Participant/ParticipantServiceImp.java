@@ -48,4 +48,6 @@ public class ParticipantServiceImp implements IParticipantService{
     public List<Participant> getAllPInSelActivity(int id) throws Exception {
         return DaoFactory.getParticipantDao().getAllPInSelActivity(id);
     }
+
+
 }

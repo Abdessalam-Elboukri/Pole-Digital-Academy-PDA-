@@ -16,6 +16,7 @@
 <html>
 <head>
     <title>Participants</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         p,span,a{
             font-size: 90%;
@@ -76,7 +77,7 @@
                                         Status
                                     </th>
                                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Opera...
+                                        Operations ...
                                     </th>
                                 </tr>
                                 </thead>
@@ -125,7 +126,20 @@
                                         </span>
                                         <%}%>
                                     </td>
-                                    <td><a href="${URI}/update?id=<%= p.getId()%>">edit</a></td>
+                                    <td>
+                                        <a href="${URI}/update?id=<%= p.getId()%>" class="me-4">edit</a>
+                                        <% if(p.getUserStatus()== User.UserStatusEnum.ACTIVE){ %>
+                                        <form>
+
+                                            <input type="hidden" name="${Constants.PARTICIPANT_TO_Edit}" value="<%=p.getId()%>">
+                                            <%   if(p.getUserStatus()== User.UserStatusEnum.ACTIVE){ %>
+                                            <label>disable</label>
+                                            <%}else{ %>
+                                            <label>enable</label>
+                                            <%}%>
+
+                                        </form>
+                                    </td>
                                 </tr>
                                 <% }%>
                                 </tbody>

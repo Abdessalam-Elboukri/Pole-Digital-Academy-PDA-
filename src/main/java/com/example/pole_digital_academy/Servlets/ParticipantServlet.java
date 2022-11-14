@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet(name = "participantServlet", urlPatterns ={ "/participants","/participants/add","/participants/update","/participants/delete"})
+@WebServlet(name = "participantServlet", urlPatterns ={ "/participants","/participants/add","/participants/update","/participants/delete","/participants/disable"})
 public class ParticipantServlet extends HttpServlet {
     public String $url ;
     @Override
@@ -84,6 +84,17 @@ public class ParticipantServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+
+            case "/participants/disable":
+                try {
+                    disableParticipant(req,resp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                    finally {
+                        resp.sendRedirect(req.getContextPath() + "/participants");
+                }
+                break;
             default:
                 resp.getWriter().write("no route mapping yet");
         };
@@ -109,6 +120,16 @@ public class ParticipantServlet extends HttpServlet {
         } finally {
             resp.sendRedirect(req.getContextPath() + "/participants");
         }
+    }
+
+
+    //Update status of participant to disabled
+    private void disableParticipant(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        Participant participant_to_disable = ServicesFactory.getParticipantService().findById(Integer.parseInt(req.getParameter("id")));
+
+        participant_to_disable.setUserStatus(User.UserStatusEnum.DISABLED);
+        ServicesFactory.getParticipantService().update(participant_to_disable);
+
     }
 
 

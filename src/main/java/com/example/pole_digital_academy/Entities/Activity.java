@@ -30,6 +30,8 @@ public class Activity {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
+    private List<Participation> participation;
     @Enumerated(EnumType.ORDINAL)
     private ActivityTypeEnum activityType=null;
     @Enumerated(EnumType.ORDINAL)

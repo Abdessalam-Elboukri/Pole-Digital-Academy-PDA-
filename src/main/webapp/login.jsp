@@ -20,7 +20,12 @@
     <div class="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
         <h1 class="text-4xl font-medium">Login</h1>
         <p class="text-slate-500">Hi, Welcome back Admin👋</p>
+       <% if( request.getParameter("message")!=null && !request.getParameter("message").isEmpty())
+       out.println(request.getParameter("message"));
+       %>
+        <div>
 
+        </div>
         <form method="post" class="my-10">
             <div class="flex flex-col space-y-5">
                 <label for="email">
