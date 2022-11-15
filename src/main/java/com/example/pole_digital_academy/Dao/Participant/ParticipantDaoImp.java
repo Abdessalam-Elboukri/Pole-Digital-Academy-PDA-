@@ -56,6 +56,7 @@ public class ParticipantDaoImp implements IParticipantDao{
         return (List<Participant>) query.getResultList();
     }
 
+
     // get all the participations that are participate in the selected activity
     public List<Participant> getAllPInSelActivity(int id){
         EntityManager em= EntityManagerFactory.getEntityManager();

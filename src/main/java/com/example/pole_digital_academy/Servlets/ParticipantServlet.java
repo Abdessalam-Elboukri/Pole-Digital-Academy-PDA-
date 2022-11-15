@@ -86,6 +86,8 @@ public class ParticipantServlet extends HttpServlet {
                     ServicesFactory.getParticipantService().insert(participant);
                 } catch (Exception e) {
                     e.printStackTrace();
+                }finally {
+                    resp.sendRedirect(req.getContextPath()+"/participants");
                 }
 
                 break;
@@ -95,19 +97,11 @@ public class ParticipantServlet extends HttpServlet {
                     UpdateParticipant(req,resp);
                 }catch (Exception e){
                     e.printStackTrace();
+                }finally {
+                    resp.sendRedirect(req.getContextPath()+"/participants");
                 }
                 break;
 
-            case "/participants/disable":
-                try {
-                    disableParticipant(req,resp);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                    finally {
-                        resp.sendRedirect(req.getContextPath() + "/participants");
-                }
-                break;
             default:
                 resp.getWriter().write("no route mapping yet");
         };
@@ -136,14 +130,6 @@ public class ParticipantServlet extends HttpServlet {
     }
 
 
-    //Update status of participant to disabled
-    private void disableParticipant(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        Participant participant_to_disable = ServicesFactory.getParticipantService().findById(Integer.parseInt(req.getParameter("id")));
-
-        participant_to_disable.setUserStatus(User.UserStatusEnum.DISABLED);
-        ServicesFactory.getParticipantService().update(participant_to_disable);
-
-    }
 
 
     }

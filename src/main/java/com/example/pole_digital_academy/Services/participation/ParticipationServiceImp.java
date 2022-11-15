@@ -18,7 +18,7 @@ public class ParticipationServiceImp implements IParticipationService{
 
     @Override
     public Participation findById(int id) throws Exception {
-        return null;
+        return DaoFactory.getParticipationDao().findById(id);
     }
 
     @Override
@@ -29,6 +29,9 @@ public class ParticipationServiceImp implements IParticipationService{
 
     @Override
     public int update(Participation entity) throws Exception {
+        DaoFactory.getParticipationDao().update1(entity);
         return 0;
     }
+
+
 }
