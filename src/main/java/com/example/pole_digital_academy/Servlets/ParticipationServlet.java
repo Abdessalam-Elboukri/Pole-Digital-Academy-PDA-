@@ -19,7 +19,7 @@ import java.util.List;
 
 
 
-@WebServlet(name = "participationServlet", urlPatterns ={ "/participation","/participation/manage"})
+@WebServlet(name = "participationServlet", urlPatterns ={ "/participation","/participation/manage","/participation/manage/add_to_activity"})
 public class ParticipationServlet extends HttpServlet {
     public String $url ;
     @Override
@@ -40,9 +40,9 @@ public class ParticipationServlet extends HttpServlet {
                 try {
                     Activity activity=ServicesFactory.getActivityService().findById(Integer.parseInt(req.getParameter("id")));
                     //list of participants that participate in the current activity
-                    List<Participant> participants_in =ServicesFactory.getParticipantService().getAllPNotInSelActivity(Integer.parseInt((req.getParameter("id"))));
+                    List<Participant> participants_out =ServicesFactory.getParticipantService().getAllPNotInSelActivity(Integer.parseInt((req.getParameter("id"))));
                     //list of participants that not participate in the current activity
-                    List<Participant> participants_out =ServicesFactory.getParticipantService().getAllPInSelActivity(Integer.parseInt((req.getParameter("id"))));
+                    List<Participant> participants_in =ServicesFactory.getParticipantService().getAllPInSelActivity(Integer.parseInt((req.getParameter("id"))));
                     req.setAttribute(Constants.KEY_ACTIVITY_TO_MANAGE,activity);
                     req.setAttribute(Constants.KEY_PARTICIPANTS_IN_LIST,participants_in);
                     req.setAttribute(Constants.KEY_PARTICIPANTS_OUT_LIST,participants_out);
@@ -50,6 +50,23 @@ public class ParticipationServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 req.getRequestDispatcher("/WEB-INF/participation/manage.jsp").forward(req,resp);
+                break;
+
+            case "/participation/manage/add_to_activity":
+                String uri ="/participation/manage?id="+req.getParameter("id");
+                try {
+                    Activity activity =ServicesFactory.getActivityService().findById(Integer.parseInt(req.getParameter("id")));
+                    Participant participant= ServicesFactory.getParticipantService().findById(Integer.parseInt(req.getParameter("participant")));
+                    Participation participation =new Participation();
+                    participation.setParticipant(participant);
+                    participation.setActivity(activity);
+                    activity.getParticipation().add(participation);
+                    participation.setParticipationType(Participation.ParticipationTypeEnum.SIGNED_IN);
+                    ServicesFactory.getParticipationService().insert(participation);
+                    resp.sendRedirect(req.getContextPath()+uri);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
 
             default:
@@ -63,12 +80,7 @@ public class ParticipationServlet extends HttpServlet {
 
         switch(requestUrl){
             case "/participation/manage":
-                try {
-                    manageParticipation(req,resp);
-                    getServletContext().getRequestDispatcher("/WEB-INF/participation/manage.jsp").forward (req, resp);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
                 break;
 
             default:

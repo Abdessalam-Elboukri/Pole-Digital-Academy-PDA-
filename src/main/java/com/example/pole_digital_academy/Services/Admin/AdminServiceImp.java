@@ -47,6 +47,6 @@ public class AdminServiceImp implements IAdminService{
     }
 
     public Admin findByEmail(String Email) throws Exception {
-        return AdminDao.findByEmail(Email);
+        return DaoFactory.getAdminDao().findByEmail(Email);
     }
 }

@@ -129,16 +129,10 @@
                                     <td>
                                         <a href="${URI}/update?id=<%= p.getId()%>" class="me-4">edit</a>
                                         <% if(p.getUserStatus()== User.UserStatusEnum.ACTIVE){ %>
-                                        <form>
-
-                                            <input type="hidden" name="${Constants.PARTICIPANT_TO_Edit}" value="<%=p.getId()%>">
-                                            <%   if(p.getUserStatus()== User.UserStatusEnum.ACTIVE){ %>
-                                            <label>disable</label>
-                                            <%}else{ %>
-                                            <label>enable</label>
-                                            <%}%>
-
-                                        </form>
+                                            <a href="${URI}/status?id=<%= p.getId()%>" class="ml-3 inset-0 p-1 bg-red-200 opacity-50 rounded-full" >disable</a>
+                                        <%}else{%>
+                                            <a href="${URI}/status?id=<%= p.getId()%>" class="ml-3 inset-0 p-1 bg-green-200 opacity-50 rounded-full" >enable</a>
+                                        <%}%>
                                     </td>
                                 </tr>
                                 <% }%>

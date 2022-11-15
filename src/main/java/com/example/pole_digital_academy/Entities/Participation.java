@@ -7,9 +7,9 @@ public class Participation {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Activity activity;
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     Participant participant;
     @Enumerated
     private ParticipationTypeEnum participationType;

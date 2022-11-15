@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet(name = "participantServlet", urlPatterns ={ "/participants","/participants/add","/participants/update","/participants/delete","/participants/disable"})
+@WebServlet(name = "participantServlet", urlPatterns ={ "/participants","/participants/add","/participants/update","/participants/delete","/participants/status"})
 public class ParticipantServlet extends HttpServlet {
     public String $url ;
     @Override
@@ -47,6 +47,19 @@ public class ParticipantServlet extends HttpServlet {
                 req.setAttribute(Constants.PARTICIPANT_TO_Edit,editParticipant);
                 System.out.println("============here=================");
                 req.getRequestDispatcher("/WEB-INF/participants/update.jsp").forward(req,resp);
+                break;
+            case "/participants/status":
+                Participant changeStatusParticipant=null;
+                try {
+                    changeStatusParticipant = ServicesFactory.getParticipantService().findById(Integer.parseInt(req.getParameter("id")));
+                    changeStatusParticipant.setUserStatus(changeStatusParticipant.getUserStatus().equals(User.UserStatusEnum.ACTIVE)? User.UserStatusEnum.DISABLED: User.UserStatusEnum.ACTIVE);
+                    ServicesFactory.getParticipantService().update(changeStatusParticipant);
+                    resp.sendRedirect(req.getContextPath()+"/participants");
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
                 break;
 
             default:
