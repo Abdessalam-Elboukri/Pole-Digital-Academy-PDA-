@@ -3,6 +3,7 @@ package com.example.pole_digital_academy.Services.activity;
 import com.example.pole_digital_academy.Dao.DaoFactory;
 import com.example.pole_digital_academy.Entities.Activity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class ActivityServiceImp implements IActivityService{
@@ -34,5 +35,11 @@ public class ActivityServiceImp implements IActivityService{
     public int update(Activity entity) throws Exception {
 
         return DaoFactory.getActivityDao().update(entity);
+    }
+
+    @Override
+    public List<Activity> search(LocalDate startIntervalDate, LocalDate endIntervalDate, Activity.ActivityTypeEnum type) {
+
+        return DaoFactory.getActivityDao().search(startIntervalDate,endIntervalDate,type);
     }
 }
