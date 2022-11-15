@@ -7,5 +7,5 @@ import com.example.pole_digital_academy.Services.IService;
 import java.util.List;
 
 public interface IParticipationService extends IService<Participation> {
-    //get all the participants are not participate in selected activity
+
 }

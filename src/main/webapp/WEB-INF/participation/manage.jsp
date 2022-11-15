@@ -1,7 +1,9 @@
 <%@ page import="com.example.pole_digital_academy.Entities.Participant" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.pole_digital_academy.utils.Constants" %>
-<%@ page import="com.example.pole_digital_academy.Entities.Activity" %><%--
+<%@ page import="com.example.pole_digital_academy.Entities.Activity" %>
+<%@ page import="com.example.pole_digital_academy.Entities.Participation" %>
+<%@ page import="java.util.Objects" %><%--
   Created by IntelliJ IDEA.
   User: abdes
   Date: 12/11/2022
@@ -30,7 +32,7 @@
                         <span class="text-xs">PDA academy</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <div class="flex bg-gray-50 gap-4 items-center text-left text-xs font-semibold text-gray-600 uppercase tracking-wider p-2 rounded-md">
+                        <div class="flex bg-gray-50 gap-2 items-center text-left text-xs font-semibold text-gray-600 uppercase tracking-wider p-2 rounded-md">
                             <div class="p-1">
                                 <p class="">TITLE : <%=a.getTitle()%></p>
                             </div>
@@ -114,16 +116,27 @@
                 <div class="text-left text-xs font-semibold text-gray-600 uppercase tracking-wider mb-4">
                     Participant already signed this Activity
                 </div>
-                <% for(Participant p_in: participants_in){ %>
+                <% for(Participation p: a.getParticipation()){ %>
                 <div class="flex items-center justify-between bg-white shadow p-1 mb-2">
                     <div>
-                        <p class="text-sm"><%=p_in.getFirstName()+ " " +p_in.getLastName()%></p>
-                        <p class="text-sm"><%=p_in.getPhone()%></p>
+                        <p class="text-sm"><%=p.getParticipant().getFirstName()+ " " +p.getParticipant().getLastName()%></p>
+                        <p class="text-sm"><%=p.getParticipant().getPhone()%></p>
+
                     </div>
-                    <div class="my-auto text-xs">
-                        <a href="${URI}/status?id=<%= p_in.getId()%>" class="ml-3 inset-0 p-1 bg-green-200 opacity-50 rounded-full" >change</a>
+                    <div class="my-auto text-xs mr-2">
+                           <form class="text-xs" method="post">
+                                <select  name="new_status" title="participation type" id="participationType"  class="w-full  border border-slate-200 rounded-lg px-1 focus:outline-none focus:border-slate-500 hover:shadow">
+                                    <% for(Participation.ParticipationTypeEnum type : Participation.ParticipationTypeEnum.values()){ %>
+                                        <option id="ptype" value="<%=type.name()%>"><%=type%></option>
+                                    <%}%>
+                                </select>
+                                <input type="hidden" name="participation_type" value="<%=p.getId()%>">
+                               <input type="hidden" name="activity" value="<%=a.getId()%>">
+                                <input type="submit" class="btn" name="submit" value="edit">
+                            </form>
+
+                        </div>
                     </div>
-                </div>
                 <%}%>
             </div>
         </div>
