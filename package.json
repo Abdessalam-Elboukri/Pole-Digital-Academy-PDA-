@@ -1,0 +1,28 @@
+{
+  "name": "pole_digital_academy",
+  "version": "1.0.0",
+  "description": "Le but de ce projet est d'analyser, modéliser et concevoir une application de gestion d'activités",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omarKazoum/Pole-Digital-Academy-PDA-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omarKazoum/Pole-Digital-Academy-PDA-/issues"
+  },
+  "homepage": "https://github.com/omarKazoum/Pole-Digital-Academy-PDA-#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.3",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "tw-elements": "^1.0.0-alpha12",
+    "webpack": "^5.75.0"
+  }
+}
