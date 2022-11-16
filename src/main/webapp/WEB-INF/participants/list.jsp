@@ -45,7 +45,7 @@
                             <input class="bg-gray-50 outline-none ml-1 block " type="text" name="" id="" placeholder="search...">
                         </div>
                         <div class="lg:ml-40 ml-10 space-x-8">
-                            <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Create New Resp</button>
+                            <a href="${URI}/add" class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Add Participant</a>
                         </div>
                     </div>
                 </div>

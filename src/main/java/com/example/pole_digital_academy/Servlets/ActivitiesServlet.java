@@ -180,7 +180,7 @@ public class ActivitiesServlet extends HttpServlet {
         }
         String responisibleId=req.getParameter(Activity.KEY_RESPONSIBLE_ID);
         Responsible responsible=null;
-        if(responisibleId!=null && !responisibleId.matches("\\d+"))
+        if(responisibleId!=null )
             responsible=ServicesFactory.getResponsibleService().findById(Integer.parseInt(responisibleId));
         activity.setResponsible(responsible);
         List<String> validationErrors=new ArrayList<>();
@@ -251,7 +251,7 @@ public class ActivitiesServlet extends HttpServlet {
         //TODO:: move this logic to the ResponsibleService
         String responisibleId=req.getParameter(Activity.KEY_RESPONSIBLE_ID);
         Responsible responsible=null;
-        if(responisibleId!=null && !responisibleId.matches("\\d+"))
+        if(responisibleId!=null )
             responsible=ServicesFactory.getResponsibleService().findById(Integer.parseInt(responisibleId));
 
         activity.setResponsible(responsible);
