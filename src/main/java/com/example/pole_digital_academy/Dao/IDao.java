@@ -12,7 +12,7 @@ public interface IDao<T> {
     default void insert(T entity) throws Exception{
         EntityManager em= EntityManagerFactory.getEntityManager();
         em.getTransaction().begin();
-        em.persist(entity);
+        em.merge(entity);
         em.getTransaction().commit();
         em.close();
     }

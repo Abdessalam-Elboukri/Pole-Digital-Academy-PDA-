@@ -22,7 +22,7 @@ public class Exercice {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String title;
     private int year;
