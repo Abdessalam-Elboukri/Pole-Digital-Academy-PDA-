@@ -29,7 +29,7 @@ public class Activity {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-    @OneToMany(mappedBy = "activity")
+    @OneToMany(mappedBy = "activity",cascade = {CascadeType.REMOVE})
     private List<Participation> participation =new ArrayList<>();
     @Enumerated(EnumType.ORDINAL)
     private ActivityTypeEnum activityType=null;
