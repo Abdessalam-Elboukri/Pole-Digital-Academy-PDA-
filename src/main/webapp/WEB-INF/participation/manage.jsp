@@ -46,7 +46,7 @@
                                 <p class="">END DATE : <%=a.getEndDate()%></p>
                             </div>
                             <div class="p-1">
-                                <p class="">RESPONSIBLE : <%=a.getResponsible().getFirstName()%></p>
+                                <p class="">RESPONSIBLE : <%=a.getResponsible()==null?"Not Set":a.getResponsible().getFirstName()+" "+a.getResponsible().getLastName()%></p>
                             </div>
                         </div>
                     </div>

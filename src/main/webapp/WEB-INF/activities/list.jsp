@@ -42,7 +42,7 @@
                 <% String activityTypeFromReq=request.getParameter(Constants.KEY_ACTIVITY_SEARCH_ACTIVITY_TYPE);%>
                 <%=
                 Stream.of(Activity.ActivityTypeEnum.values()).map(at->
-                        String.format("<option value='%d' %s>%s</option>",at.ordinal(),at.equals(activityTypeFromReq)?"selected":"",at.toString())
+                        String.format("<option value='%d' %s>%s</option>",at.ordinal(),at.equals(Activity.ActivityTypeEnum.values()[Integer.parseInt(activityTypeFromReq==null?"0":activityTypeFromReq)])?"selected":"",at.toString())
                 ).collect(Collectors.joining(""))%>
             </select>
 
@@ -140,7 +140,7 @@
 
                     <td>
                         <div class="">
-                            <a  class="inline-block px-1 py-2 bg-green-400 text-white  text-xs  rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" href="${CONTEXT_PATH}/exercices?activity_id=<%= a.getId()%>">Exrs (<%= a.getExercices().size()%>)</a>
+                            <a  class="inline-block px-1 py-2 bg-green-400 text-white  text-xs  rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" href="${CONTEXT_PATH}/exercices?activity_id=<%= a.getId()%>" title="exercises">Exes (<%= a.getExercices().size()%>)</a>
                             <a  class="inline-block px-1 py-2 bg-blue-400 text-white  text-xs  rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" href="${URI}/edit?id=<%= a.getId()%>">View/Edit</a>
                             <a  class="inline-block px-1 py-2 bg-red-300 text-white  text-xs  rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" href="${URI}/delete?id=<%= a.getId()%>">Delete</a>
                         </div>
