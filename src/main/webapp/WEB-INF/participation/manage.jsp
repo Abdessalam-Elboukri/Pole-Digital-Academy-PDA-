@@ -111,7 +111,7 @@
             </div>
         </div>
         <% List<Participant> participants_in = ((List<Participant>) request.getAttribute(Constants.KEY_PARTICIPANTS_IN_LIST)); %>
-        <div class="w-96 h-full rounded mr-3 mt-8">
+        <div class="w-1/3 h-full rounded mr-3 mt-8">
             <div class=" p-1 rounded-md w-full border-b-2 border-gray-200 bg-gray-100">
                 <div class="text-left text-xs font-semibold text-gray-600 uppercase tracking-wider mb-4">
                     Participant already signed this Activity
@@ -127,7 +127,7 @@
                            <form class="text-xs" method="post">
                                 <select  name="new_status" title="participation type" id="participationType"  class="w-full  border border-slate-200 rounded-lg px-1 focus:outline-none focus:border-slate-500 hover:shadow">
                                     <% for(Participation.ParticipationTypeEnum type : Participation.ParticipationTypeEnum.values()){ %>
-                                        <option id="ptype" value="<%=type.name()%>"><%=type%></option>
+                                        <option<% if(Objects.equals(p.getParticipationType(),type)){ %> <%="selected" %> <%}%> id="ptype" value="<%=type.name()%>"><%=type%></option>
                                     <%}%>
                                 </select>
                                 <input type="hidden" name="participation_type" value="<%=p.getId()%>">
