@@ -117,8 +117,8 @@
                                     </td>
 
                                     <td>
-                                        <a href="${URI}/edit?id=<%= a.getId()%>">View/Edit</a>
-                                        <a href="${URI}/delete?id=<%= a.getId()%>">Delete</a>
+                                        <a href="${URI}/edit?id=<%= a.getId()%>" class="inline-block px-1 py-2 bg-blue-400 text-white  text-xs  rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">View/Edit</a>
+                                        <a href="${URI}/delete?id=<%= a.getId()%>" class="inline-block px-1 py-2 bg-red-400 text-white  text-xs  rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Delete</a>
                                     </td>
                                 </tr>
                                 <% }%>
