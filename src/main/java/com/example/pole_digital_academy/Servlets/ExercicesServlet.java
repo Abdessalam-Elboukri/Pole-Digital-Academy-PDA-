@@ -23,12 +23,12 @@ public class ExercicesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+        String requestUrl=req.getRequestURI().replace(req.getContextPath(),"");
         //TODO call responsible service instead
 
         switch(requestUrl){
             case "/exercices":
-                List<Exercice> exercices;
+                List<Exercice> exercices=new ArrayList<>();
                 try {
                     String activityId=req.getParameter("activity_id");
                     if(activityId!=null)
@@ -37,7 +37,6 @@ public class ExercicesServlet extends HttpServlet {
                         exercices=ServicesFactory.getExercicesService().getAll();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    throw new IOException(e.getMessage());
                 }
                 req.setAttribute(Constants.KEY_EXERCICES_LIST,exercices);
                 req.getRequestDispatcher("/WEB-INF/exercices/list.jsp").forward(req,resp);
@@ -96,7 +95,7 @@ public class ExercicesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+        String requestUrl=req.getRequestURI().replace(req.getContextPath(),"");
         switch(requestUrl){
             case "/exercices/add":
                   try {
@@ -162,7 +161,7 @@ public class ExercicesServlet extends HttpServlet {
                 message="Error updating exercice";
             }
             finally {
-                resp.sendRedirect("/exercices?message="+message);
+                resp.sendRedirect(req.getContextPath()+"/exercices?message="+message);
             }
         }else
         {
@@ -217,7 +216,7 @@ public class ExercicesServlet extends HttpServlet {
                 message="Error adding exercice";
             }
             finally {
-                resp.sendRedirect("/exercices?message="+message);
+                resp.sendRedirect(req.getContextPath()+"/exercices?message="+message);
             }
 
 

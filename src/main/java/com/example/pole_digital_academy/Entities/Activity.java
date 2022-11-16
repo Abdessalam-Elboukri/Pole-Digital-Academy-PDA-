@@ -35,7 +35,7 @@ public class Activity {
     private ActivityTypeEnum activityType=null;
     @Enumerated(EnumType.ORDINAL)
     private ActivityStatusEnum status=null;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "responsible_id",referencedColumnName = "id")
     private Responsible responsible;
     @OneToMany(cascade = CascadeType.MERGE,mappedBy = "activity")

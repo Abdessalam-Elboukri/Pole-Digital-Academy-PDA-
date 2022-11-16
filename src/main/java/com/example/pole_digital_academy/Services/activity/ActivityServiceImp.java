@@ -39,7 +39,6 @@ public class ActivityServiceImp implements IActivityService{
 
     @Override
     public List<Activity> search(LocalDate startIntervalDate, LocalDate endIntervalDate, Activity.ActivityTypeEnum type) {
-
         return DaoFactory.getActivityDao().search(startIntervalDate,endIntervalDate,type);
     }
 }

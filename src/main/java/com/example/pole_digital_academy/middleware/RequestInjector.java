@@ -18,6 +18,7 @@ public class RequestInjector implements Filter {
         HttpServletRequest request= (HttpServletRequest) servletRequest;
         System.out.println("requested url: "+request.getRequestURI());
         request.setAttribute("URI",request.getRequestURI());
+        request.setAttribute("CONTEXT_PATH",request.getContextPath());
         filterChain.doFilter(servletRequest,servletResponse);
     }
 

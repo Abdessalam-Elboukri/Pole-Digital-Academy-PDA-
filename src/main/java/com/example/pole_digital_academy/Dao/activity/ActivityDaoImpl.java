@@ -1,8 +1,10 @@
 package com.example.pole_digital_academy.Dao.activity;
 import com.example.pole_digital_academy.Entities.Activity;
 import com.example.pole_digital_academy.utils.EntityManagerFactory;
+import com.example.pole_digital_academy.utils.Utils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TemporalType;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -55,23 +57,15 @@ public class ActivityDaoImpl implements IActivityDao {
         StringBuilder queryString=new StringBuilder();
         queryString.append("SELECT a FROM Activity a ");
         if(startIntervalDate!=null && endIntervalDate!=null){
-            queryString.append("WHERE a.startDate>=:startDate AND a.endDate<=:endDate");
+            queryString.append("WHERE a.startDate>='"+startIntervalDate.toString()+"' AND a.endDate<='"+endIntervalDate.toString()+"'");
         }
         if(startIntervalDate!=null && endIntervalDate!=null && type!=null){
-            queryString.append(" AND a.type:type");
+            queryString.append(" AND a.activityType="+type.ordinal());
         }else if((startIntervalDate!=null || endIntervalDate!=null) && type!=null){
-            queryString.append("WHERE a.type:type");
+            queryString.append("WHERE a.activityType="+type.ordinal());
         }
-
+        System.out.println("query : "+queryString.toString());
         Query q=EntityManagerFactory.getEntityManager().createQuery(queryString.toString(),Activity.class);
-        if(startIntervalDate!=null && endIntervalDate!=null){
-            q.setParameter("startDate",startIntervalDate.toString());
-            q.setParameter("endDate",endIntervalDate.toString());
-
-        }
-        if(type!=null){
-            q.setParameter("type",type.ordinal());
-        }
         return q.getResultList();
     }
 }
