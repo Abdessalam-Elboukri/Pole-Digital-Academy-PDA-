@@ -95,7 +95,7 @@ public class ParticipationServlet extends HttpServlet {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }finally {
-                        // resp.sendRedirect(uri3);
+                         resp.sendRedirect(uri2);
                     }
                     break;
 
