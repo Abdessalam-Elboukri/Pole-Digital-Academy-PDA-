@@ -95,7 +95,7 @@ public class ResponsibleServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
+                resp.sendRedirect(req.getContextPath() + "/responsibles");
                 break;
             case "/responsibles/update":
                 try {

@@ -20,11 +20,11 @@
     <div class="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
         <h1 class="text-4xl font-medium">Login</h1>
         <p class="text-slate-500">Hi, Welcome back Admin👋</p>
-       <% if( request.getParameter("message")!=null && !request.getParameter("message").isEmpty()) %>
+       <% if( request.getParameter("message")!=null && !request.getParameter("message").isEmpty()){ %>
         <div class="flex justify-center">
             <p class="inset-0 p-2 bg-red-200 opacity-50"><%=request.getParameter("message")%></p>
         </div>
-
+    <%}%>
         <div>
 
         </div>

@@ -1,7 +1,6 @@
 package com.example.pole_digital_academy.Dao.activity;
 import com.example.pole_digital_academy.Entities.Activity;
 import com.example.pole_digital_academy.utils.EntityManagerFactory;
-import com.example.pole_digital_academy.utils.Utils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TemporalType;

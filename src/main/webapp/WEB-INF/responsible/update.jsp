@@ -61,9 +61,9 @@
 
             <% List<ResponsibleType> resTypes = ((List<ResponsibleType>)request.getAttribute(Constants.KEY_RESPONSIBLE_TYPES));  %>
             <label for="responsableType" class="font-medium text-slate-700 pb-2">Responsible Type</label>
-            <select  name=" responsableType" title="responsable type" id="responsableType"  class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow">
-                <% for(ResponsibleType Types : resTypes){ %>
-                <option <% if(Objects.equals(r.getRes_type().getName(), Types.getName())){ %> <%="selected" %> <%}%> value="<%=Types.getId()%>"><%= Types.getName()%></option><%}%>
+            <select  name="responsableType" title="responsable type" id="responsableType"  class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow">
+                <% for(ResponsibleType responsibleType : resTypes){ %>
+                <option <% if(Objects.equals(r.getRes_type().getName(), responsibleType.getName())){ %> <%="selected" %> <%}%> value="<%=responsibleType.getId()%>"><%= responsibleType.getName()%></option><%}%>
             </select>
 
             <button class="w-25 py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center">
