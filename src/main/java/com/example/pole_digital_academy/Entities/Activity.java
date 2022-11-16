@@ -38,7 +38,7 @@ public class Activity {
     @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "responsible_id",referencedColumnName = "id")
     private Responsible responsible;
-    @OneToMany(cascade = CascadeType.MERGE,mappedBy = "activity",fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE},mappedBy = "activity",fetch = FetchType.EAGER)
     private List<Exercice> exercices=new ArrayList<>();
 
     public enum ActivityTypeEnum{
