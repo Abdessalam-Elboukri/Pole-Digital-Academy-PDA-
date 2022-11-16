@@ -19,13 +19,13 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "activitiesServlet",urlPatterns = {"/activities","/activities/add","/activities/delete","/activities/edit"})
+@WebServlet(name = "activitiesServlet",urlPatterns = {"/activities","/activities/add","/activities/delete","/activities/edit","/"})
 public class ActivitiesServlet extends HttpServlet {
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+        String requestUrl=req.getRequestURI().replace(req.getContextPath(),"");
         //TODO call responsible service instead
         List<Responsible> responsibles = null;
         try {
@@ -36,56 +36,77 @@ public class ActivitiesServlet extends HttpServlet {
         }
 
 
-        switch(requestUrl){
+        switch(requestUrl) {
+            case"/":
             case "/activities":
-                List<Activity> activities;
+                List<Activity> activities = new ArrayList<>();
+                boolean searchCriteriaPresent;
                 try {
-                    activities=ServicesFactory.getActivityService().getAll();
+                    searchCriteriaPresent = false;
+                    LocalDate startDate = null;
+                    String startDateStr = req.getParameter(Constants.KEY_ACTIVITY_SEARCH_START_DATE);
+                    if (startDateStr != null && !startDateStr.isEmpty()) {
+                        startDate = LocalDate.parse(startDateStr);
+                        searchCriteriaPresent = true;
+                    }
+                    LocalDate endDate = null;
+                    String endDateStr = req.getParameter(Constants.KEY_ACTIVITY_SEARCH_END_DATE);
+                    if (endDateStr != null && !endDateStr.isEmpty()) {
+                        endDate = LocalDate.parse(endDateStr);
+                        searchCriteriaPresent = true;
+                    }
+
+                    Activity.ActivityTypeEnum activityType = null;
+                    String activityTypeStr = req.getParameter(Constants.KEY_ACTIVITY_SEARCH_ACTIVITY_TYPE);
+                    if (activityTypeStr != null && !activityTypeStr.isEmpty()) {
+                        searchCriteriaPresent = true;
+                        activityType = Activity.ActivityTypeEnum.values()[Integer.parseInt(activityTypeStr)];
+                    }
+                    activities = ServicesFactory.getActivityService().search(startDate, endDate, activityType);
                 } catch (Exception e) {
                     e.printStackTrace();
                     throw new IOException(e.getMessage());
                 }
-
-                req.setAttribute(Constants.KEY_ACTIVITIES_LIST,activities);
-                req.getRequestDispatcher("/WEB-INF/activities/list.jsp").forward(req,resp);
+                req.setAttribute(Constants.KEY_IS_SEARCHING, searchCriteriaPresent);
+                req.setAttribute(Constants.KEY_ACTIVITIES_LIST, activities);
+                req.getRequestDispatcher("/WEB-INF/activities/list.jsp").forward(req, resp);
                 break;
             case "/activities/add":
 
-                //TODO call the responsibles service instead here == >  (done)
                 try {
                     //List<Responsible> responsibles = ServicesFactory.getResponsibleService().getNonOccupedResponsibles();
-                    req.setAttribute(Constants.KEY_RESPONSIBLES,responsibles);
+                    req.setAttribute(Constants.KEY_RESPONSIBLES, responsibles);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                 req.getRequestDispatcher("/WEB-INF/activities/add.jsp").forward(req,resp);
+                req.getRequestDispatcher("/WEB-INF/activities/add.jsp").forward(req, resp);
 
                 break;
-                case "/activities/edit":
-                    Activity activityToEdit=null;
-                    try {
+            case "/activities/edit":
+                Activity activityToEdit = null;
+                try {
 
-                        activityToEdit=ServicesFactory.getActivityService().findById(Integer.parseInt(req.getParameter("id")));
-                        System.out.println("found activity has a name of "+activityToEdit.getTitle());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("error while looking for activity !");
-                    }
-                    req.setAttribute(Constants.KEY_ACTIVITY_TO_EDIT,activityToEdit);
-                    req.getRequestDispatcher("/WEB-INF/activities/edit.jsp").forward(req,resp);
+                    activityToEdit = ServicesFactory.getActivityService().findById(Integer.parseInt(req.getParameter("id")));
+                    System.out.println("found activity has a name of " + activityToEdit.getTitle());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("error while looking for activity !");
+                }
+                req.setAttribute(Constants.KEY_ACTIVITY_TO_EDIT, activityToEdit);
+                req.getRequestDispatcher("/WEB-INF/activities/edit.jsp").forward(req, resp);
                 break;
-                case "/activities/delete":
-                    IActivityService activityService=ServicesFactory.getActivityService();
-                    String message="";
-                    try {
-                            ServicesFactory.getActivityService().delete(Integer.parseInt(req.getParameter("id")));
-                            message="activity deleted successfully!";
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                            message="Error deleting service";
-                    }finally {
-                        resp.sendRedirect("/activities?message="+message);
-                    }
+            case "/activities/delete":
+                IActivityService activityService = ServicesFactory.getActivityService();
+                String message = "";
+                try {
+                    ServicesFactory.getActivityService().delete(Integer.parseInt(req.getParameter("id")));
+                    message = "activity deleted successfully!";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    message = "Error deleting service";
+                } finally {
+                    resp.sendRedirect(req.getContextPath() + "/activities?message=" + message);
+                }
 
                 break;
             default:
@@ -96,7 +117,7 @@ public class ActivitiesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doPost(req, resp);
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+        String requestUrl=req.getRequestURI().replace(req.getContextPath(),"");
         switch(requestUrl){
             case "/activities/add":
                   try {
@@ -157,8 +178,10 @@ public class ActivitiesServlet extends HttpServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
-        //TODO:: move this logic to the ResponsibleService
-        Responsible responsible= ServicesFactory.getResponsibleService().findById(Integer.parseInt(req.getParameter(Activity.KEY_RESPONSIBLE_ID)));
+        String responisibleId=req.getParameter(Activity.KEY_RESPONSIBLE_ID);
+        Responsible responsible=null;
+        if(responisibleId!=null && !responisibleId.matches("\\d+"))
+            responsible=ServicesFactory.getResponsibleService().findById(Integer.parseInt(responisibleId));
         activity.setResponsible(responsible);
         List<String> validationErrors=new ArrayList<>();
         if(InputValidator.isActivityValid(activity,validationErrors) ){
@@ -174,7 +197,7 @@ public class ActivitiesServlet extends HttpServlet {
                 message="Error updating activity";
             }
             finally {
-                resp.sendRedirect("/activities?message="+message);
+                resp.sendRedirect(req.getContextPath()+"/activities?message="+message);
             }
 
         }else
@@ -224,13 +247,13 @@ public class ActivitiesServlet extends HttpServlet {
             activity.setEndDate(LocalDate.now());
         }
         activity.setDescription(req.getParameter(Activity.KEY_DESCRIPTION));
-        try {
-            activity.setStatus(Activity.ActivityStatusEnum.values()[Integer.parseInt(req.getParameter(Activity.KEY_ACTIVITY_STATUS))]);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+            activity.setStatus(Activity.ActivityStatusEnum.ACTIVE);
         //TODO:: move this logic to the ResponsibleService
-        Responsible responsible=ServicesFactory.getResponsibleService().findById(Integer.parseInt(req.getParameter(Activity.KEY_RESPONSIBLE_ID)));
+        String responisibleId=req.getParameter(Activity.KEY_RESPONSIBLE_ID);
+        Responsible responsible=null;
+        if(responisibleId!=null && !responisibleId.matches("\\d+"))
+            responsible=ServicesFactory.getResponsibleService().findById(Integer.parseInt(responisibleId));
+
         activity.setResponsible(responsible);
         List<String> validationErrors=new ArrayList<>();
         if(InputValidator.isActivityValid(activity,validationErrors) ){
@@ -244,7 +267,7 @@ public class ActivitiesServlet extends HttpServlet {
                 message="Error adding activity";
             }
             finally {
-                resp.sendRedirect("/activities?message="+message);
+                resp.sendRedirect(req.getContextPath()+"/activities?message="+message);
             }
 
 

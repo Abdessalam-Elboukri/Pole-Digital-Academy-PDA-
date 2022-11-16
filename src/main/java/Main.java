@@ -1,5 +1,8 @@
 
 import com.example.pole_digital_academy.Dao.DaoFactory;
+import com.example.pole_digital_academy.Dao.Responsible.IResponsibleDao;
+import com.example.pole_digital_academy.Dao.ResponsibleType.IResponsibleTypeDao;
+import com.example.pole_digital_academy.Dao.activity.IActivityDao;
 import com.example.pole_digital_academy.Entities.*;
 import com.example.pole_digital_academy.utils.EntityManagerFactory;
 import jakarta.persistence.EntityManager;
@@ -7,6 +10,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -18,7 +22,37 @@ public class Main {
         //addAdmin();
 
         //addResType();
+      /*  IActivityDao ad=DaoFactory.getActivityDao();
+        IResponsibleDao responsibleDao=DaoFactory.getResponsibleDao();
+        IResponsibleTypeDao responsibleTypeDao=DaoFactory.getResponsibleTypeDao();
 
+        //created responsible type
+        ResponsibleType responsibleType= new ResponsibleType() ;
+        responsibleType.setName("teacher");
+        responsibleTypeDao.insert(responsibleType);
+        //created responsible
+        Responsible responsible = new Responsible();
+        responsible.setFirstName("omar");
+        responsible.setLastName("kazoum");
+        responsible.setPhone("0667673755");
+        responsible.setEmail("Okazoum@gmail.com");
+        responsible.setRole(User.Role.PARTICIPANT);
+        responsible.setUserStatus(User.UserStatusEnum.ACTIVE);
+        responsible.setRes_type(responsibleTypeDao.getAll().stream().findAny().get());
+        responsible.setDomaine("coach");
+        responsibleDao.insert(responsible);
+        //created activity
+        Activity a1=new Activity();
+        a1.setTitle("a1");
+        a1.setStatus(Activity.ActivityStatusEnum.ACTIVE);
+        a1.setActivityType(Activity.ActivityTypeEnum.EVENT);
+        a1.setStartDate(LocalDate.now());
+        a1.setEndDate(LocalDate.now());
+        a1.setResponsible(responsible);
+        responsible.setActivityList(Arrays.asList(a1));
+        responsibleTypeDao.insert(responsibleType);
+        ad.insert(a1);*/
+       // System.out.println(ad.search(LocalDate.now().minusDays(100),LocalDate.now(), Activity.ActivityTypeEnum.EVENT).size()==1);
 
     }
 

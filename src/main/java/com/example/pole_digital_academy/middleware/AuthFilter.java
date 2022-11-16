@@ -8,8 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "auth",urlPatterns = {"/home","/activities","/activities/add",
-                                                "/activities/delete", "/activities/edit"})
+@WebFilter(filterName = "auth",servletNames = {"exercicesServlet","activitiesServlet","HomeServlet","participantServlet","participationServlet","ResponsibleServlet"})
 
 public class AuthFilter implements Filter {
 

@@ -17,5 +17,10 @@ public class Constants {
     public static final String KEY_ACTIVITY_TO_MANAGE="activity_to_manage";
     public static final String KEY_PARTICIPANTS_OUT_LIST = "participants_out_list";
     public static final String KEY_PARTICIPANTS_IN_LIST = "participants_in_list";
+    public static final String KEY_ACTIVITY_SEARCH_START_DATE="start_date_search";
+    public static final String KEY_ACTIVITY_SEARCH_END_DATE="end_date_search";
+    public static final String KEY_ACTIVITY_SEARCH_ACTIVITY_TYPE="activity_type_search";
 
+
+    public static final String KEY_IS_SEARCHING = "is_searching";
 }
