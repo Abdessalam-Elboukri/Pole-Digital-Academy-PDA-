@@ -21,7 +21,7 @@ public class Main {
 
         //addAdmin();
 
-        //addResType();
+        addResType();
       /*  IActivityDao ad=DaoFactory.getActivityDao();
         IResponsibleDao responsibleDao=DaoFactory.getResponsibleDao();
         IResponsibleTypeDao responsibleTypeDao=DaoFactory.getResponsibleTypeDao();

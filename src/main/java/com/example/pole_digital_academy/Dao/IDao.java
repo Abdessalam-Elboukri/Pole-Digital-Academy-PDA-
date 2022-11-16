@@ -14,6 +14,7 @@ public interface IDao<T> {
         em.getTransaction().begin();
         em.persist(entity);
         em.getTransaction().commit();
+        em.close();
     }
     int update(T entity) throws Exception;
 

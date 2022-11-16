@@ -26,7 +26,7 @@ public class ParticipationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl = req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded", "");
+        String requestUrl = req.getRequestURI().replace(req.getContextPath(), "");
         switch (requestUrl) {
             case "/participation":
                 try {
@@ -80,12 +80,10 @@ public class ParticipationServlet extends HttpServlet {
 
         @Override
         protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            String requestUrl = req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded", "");
-
+            String requestUrl = req.getRequestURI().replace(req.getContextPath(), "");
             switch (requestUrl) {
                 case "/participation/manage":
-                    String uri2 = "/participation/manage?id=" + req.getParameter("activity");
-                    String uri3 = "/participation/participation";
+                    String uri2 =req.getContextPath()+ "/participation/manage?id=" + req.getParameter("activity");
                     try {
                         Participation participation_to_changeStatus = ServicesFactory.getParticipationService().findById(Integer.parseInt(req.getParameter("participation_type")));
                         String status = req.getParameter("new_status");
