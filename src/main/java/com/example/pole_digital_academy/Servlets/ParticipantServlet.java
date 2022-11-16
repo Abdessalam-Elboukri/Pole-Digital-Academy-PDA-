@@ -20,7 +20,7 @@ public class ParticipantServlet extends HttpServlet {
     public String $url ;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+        String requestUrl=req.getRequestURI().replace(req.getContextPath(),"");
         switch (requestUrl){
             case "/participants":
                 List<Participant> participantList = null;
@@ -69,7 +69,7 @@ public class ParticipantServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestUrl=req.getRequestURI().replace("/Pole_Digital_Academy_war_exploded","");
+        String requestUrl=req.getRequestURI().replace(req.getContextPath(),"");
 
         switch(requestUrl){
             case "/participants/add":
@@ -124,8 +124,6 @@ public class ParticipantServlet extends HttpServlet {
         }catch (Exception e){
         e.printStackTrace();
         message="Error While updating participant";
-        } finally {
-            resp.sendRedirect(req.getContextPath() + "/participants");
         }
     }
 

@@ -80,11 +80,11 @@ public class ExercicesServlet extends HttpServlet {
                     try {
                         System.out.println("delete exercice : "+exerciceService.delete(Integer.parseInt(req.getParameter("id"))));
                             message="exercice deleted successfully!";
-                    } catch (Exception e) {;
+                    } catch (Exception e) {
                         System.out.println("Error:"+e.getCause());
                         message="Error deleting exercice";
                     }finally {
-                        resp.sendRedirect("/exercices?message="+message);
+                        resp.sendRedirect(req.getContextPath()+"/exercices?message="+message);
                     }
 
                 break;
