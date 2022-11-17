@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Participation {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @ManyToOne(cascade = CascadeType.MERGE)
     private Activity activity;
